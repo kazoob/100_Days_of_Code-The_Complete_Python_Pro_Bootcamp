@@ -25,21 +25,32 @@ print("Your mission is to find the treasure.")
 
 gameover = False
 
-print("You're at a cross road. Where do you want to go?")
-if input("Type \"left\" or \"right\"\n").lower() != "left":
+print('You\'re at a cross road. '
+      'Where do you want to go?')
+choice = input("Type \"left\" or \"right\"\n")
+if choice.lower() != "left":
     print("You fell into a hole. Game Over.")
     gameover = True
 
 if not gameover:
-    print("You've come to a lake. There is an island in the middle of the lake.")
-    if input("Type \"wait\" to wait for a boat. Type \"swim\" to swim across.\n").lower() != "wait":
+    print('You\'ve come to a lake. '
+          'There is an island in the middle of the lake.')
+    choice = input('Type \"wait\" to wait for a boat. '
+                   'Type \"swim\" to swim across.\n')
+    if choice.lower() != "wait":
         print("You get attacked by an angry trout. Game Over.")
         gameover = True
 
 if not gameover:
-    print("You arrive at the island unharmed. There is a house with 3 doors.")
-    if input("One red, one yellow and one blue. Which colour do you choose?\n").lower() != "yellow":
-        print("It's a room full of fire. Game Over.")
+    print('You arrive at the island unharmed. '
+          'There is a house with 3 doors.')
+    choice = input('One red, one yellow and one blue. '
+                   'Which colour do you choose?\n')
+    if choice.lower() != "yellow":
+        if choice.lower() == "red":
+            print("It's a room full of fire. Game Over.")
+        else:
+            print("It's a room full of beasts. Game Over.")
         gameover = True
 
 if not gameover:
