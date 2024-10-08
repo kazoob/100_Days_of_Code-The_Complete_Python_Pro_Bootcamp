@@ -28,6 +28,16 @@ operations = {
     "/": divide,
 }
 
+# Populate string of allowed operations for user prompt.
+allowed_operations = ""
+for op in operations:
+    if allowed_operations == "":
+        prefix = ""
+    else:
+        prefix = ","
+
+    allowed_operations += prefix + op
+
 should_continue = True
 num1 = None
 
@@ -48,7 +58,7 @@ while should_continue:
 
     # Prompt user for the operation, verifying against list of allowed operations.
     while not operation in operations:
-        operation = input("Enter the operation (+,-,*,/): ")
+        operation = input(f"Enter the operation ({allowed_operations}): ")
 
     # Prompt user for num2.
     num2 = float(input("Enter the second number: "))
