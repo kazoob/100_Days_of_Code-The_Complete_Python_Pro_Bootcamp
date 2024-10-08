@@ -16,7 +16,7 @@ def encrypt(original_text, shift_amount):
         new_letter_pos = (alphabet.index(letter) + shift_amount) % len(alphabet)
         result += alphabet[new_letter_pos]
 
-    print(result)
+    print(f"Here is the encoded result: {result}")
 
 # Call the 'encrypt()' function and pass in the user inputs. You should be able to test the code and encrypt a
 #  message.
