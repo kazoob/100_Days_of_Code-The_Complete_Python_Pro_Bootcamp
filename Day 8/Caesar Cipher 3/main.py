@@ -36,4 +36,4 @@ while cont == "y":
 
     cont = ""
     while cont != "y" and cont != "n":
-        cont = input("Type 'y' if you want to go again. Otherwise, type 'n'.\n")
+        cont = input("Type 'y' if you want to go again. Otherwise, type 'n'.\n").lower()
