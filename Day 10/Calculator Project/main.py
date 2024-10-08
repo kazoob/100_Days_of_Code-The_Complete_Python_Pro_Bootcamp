@@ -61,6 +61,7 @@ while should_continue:
     user_prompt = ""
     while not(user_prompt.startswith("q") or user_prompt.startswith("y") or user_prompt.startswith("n")):
         user_prompt = input(f"Type 'q' to quit, 'y' to continue calculating with {result}, or 'n' to start a new calculation. ").lower()
+
     # Quit
     if user_prompt.startswith("q"):
         should_continue = False
