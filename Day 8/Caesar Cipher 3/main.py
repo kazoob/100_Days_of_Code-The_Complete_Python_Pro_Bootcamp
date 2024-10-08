@@ -25,15 +25,18 @@ def caesar(original_text, shift_amount, encode_or_decode):
         print(f"Error - invalid direction: {encode_or_decode}")
 
 # Can you figure out a way to restart the cipher program?
-cont = "y"
+cont = True
 
-while cont == "y":
+while cont:
     direction = input("Type 'e' to encrypt, type 'd' to decrypt:\n").lower()
     text = input("Type your message:\n").lower()
     shift = int(input("Type the shift number:\n"))
 
     caesar(original_text=text, shift_amount=shift, encode_or_decode=direction)
 
-    cont = ""
-    while cont != "y" and cont != "n":
-        cont = input("Type 'y' if you want to go again. Otherwise, type 'n'.\n").lower()
+    cont_input = ""
+    while not cont_input.startswith("y") and not cont_input.startswith("n"):
+        cont_input = input("Type 'y' if you want to go again. Otherwise, type 'n'.\n").lower()
+    if cont_input.startswith("n"):
+        cont = False
+        print("Goodbye!")
