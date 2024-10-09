@@ -20,11 +20,14 @@ def deal_card(deck):
     return random.choice(deck)
 
 def score_hand(hand):
-    """Returns the best score for the hand. Will count Aces as 1 or 11 as needed."""
+    """Returns the best score for the hand (will count Aces as 1 or 11 as needed). If hand is Blackjack, will return 0."""
 
     # Count the number of Aces.
     aces = hand.count(11)
 
+    # Check for Blackjack (Ace and Face card only)
+    if len(hand) == 2 and sum(hand) == 21:
+        return 0
     # If the hand exceeds 21 and there are Aces, calculate optimal mix of 1 or 11 Ace values.
     if sum(hand) > 21 and aces > 0:
         # All possible score options <= 21.
@@ -32,7 +35,7 @@ def score_hand(hand):
 
         # Calculate options for each Ace.
         for x in range(1, aces + 1):
-            # If Blackjack, return.
+            # If score = 21, return.
             if sum(hand) - x * 10 == 21:
                 return 21
             # If hand under 21, include in possible score option.
@@ -51,14 +54,23 @@ def score_hand(hand):
 
 def print_hands(player_hand, dealer_hand, dealer_hidden):
     """Print the player and dealer hands, including score. Option to only display the dealer's first card."""
+    player_score = str(score_hand(player_hand))
+    dealer_score = str(score_hand(dealer_hand))
+
+    if player_score == "0":
+        player_score = "21 BJ"
+
+    if dealer_score == "0":
+        dealer_score = "21 BJ"
+
     print("")
-    print(f"Your cards: {bcolors.HEADER}{player_hand}{bcolors.ENDC}, score: {bcolors.OKBLUE}{score_hand(player_hand)}{bcolors.ENDC}")
+    print(f"Your cards: {bcolors.HEADER}{player_hand}{bcolors.ENDC}, score: {bcolors.OKBLUE}{player_score}{bcolors.ENDC}")
 
     # Only display the dealer's first card if requested.
     if dealer_hidden:
         print(f"Dealer's first card: {bcolors.OKBLUE}{dealer_hand[0]}{bcolors.ENDC}")
     else:
-        print(f"Dealer's cards: {bcolors.HEADER}{dealer_hand}{bcolors.ENDC}, score: {bcolors.OKBLUE}{score_hand(dealer_hand)}{bcolors.ENDC}")
+        print(f"Dealer's cards: {bcolors.HEADER}{dealer_hand}{bcolors.ENDC}, score: {bcolors.OKBLUE}{dealer_score}{bcolors.ENDC}")
 
     print("")
 
@@ -81,13 +93,13 @@ def blackjack():
         player_hand.append(deal_card(deck_current))
         dealer_hand.append(deal_card(deck_current))
 
-    # While the player has not passed or been forced to pass (Blackjack or bust), proceed with player turn.
+    # While the player has not passed or been forced to pass (score = 21 or bust), proceed with player turn.
     player_pass = False
     while not player_pass:
         print_hands(player_hand, dealer_hand, True)
 
-        # Check for Blackjack, if yes force pass.
-        if score_hand(player_hand) == 21:
+        # Check for score = 21 or Blackjack (score = 0), if yes force pass.
+        if score_hand(player_hand) == 21 or score_hand(player_hand) == 0:
             print(f"{bcolors.WARNING}** Hand is 21, forcing pass. **{bcolors.ENDC}\n")
             player_pass = True
         else:
@@ -117,10 +129,10 @@ def blackjack():
         print_hands(player_hand, dealer_hand, False)
 
         # Dealer has Blackjack, dealer wins.
-        if score_hand(dealer_hand) == 21:
+        if score_hand(dealer_hand) == 0:
             print(f"{bcolors.FAIL}** Dealer has Blackjack! You lose. :( **{bcolors.ENDC}\n")
         # Player has Blackjack, player wins.
-        elif score_hand(player_hand) == 21:
+        elif score_hand(player_hand) == 0:
             print(f"{bcolors.OKGREEN}** You have Blackjack! You win! :) **{bcolors.ENDC}\n")
         # Dealer bust, player wins.
         elif score_hand(dealer_hand) > 21:
