@@ -59,10 +59,10 @@ def print_hands(player_hand, dealer_hand, dealer_hidden):
     dealer_score = str(score_hand(dealer_hand))
 
     if player_score == "0":
-        player_score = "21 BJ"
+        player_score = "21 Blackjack"
 
     if dealer_score == "0":
-        dealer_score = "21 BJ"
+        dealer_score = "21 Blackjack"
 
     print("")
     print(f"Your cards: {bcolors.HEADER}{player_hand}{bcolors.ENDC}, score: {bcolors.OKBLUE}{player_score}{bcolors.ENDC}")
