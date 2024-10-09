@@ -123,8 +123,10 @@ def blackjack():
         print(f"{bcolors.FAIL}** You went over. You lose. :( **{bcolors.ENDC}\n")
     else:
         # Dealer turn, deal all necessary cards.
-        while score_hand(dealer_hand) < 17 and score_hand(dealer_hand) != 0:
+        dealer_score = score_hand(dealer_hand)
+        while dealer_score < 17 and dealer_score != 0:
             dealer_hand.append(deal_card(deck_current))
+            dealer_score = score_hand(dealer_hand)
 
         print_hands(player_hand, dealer_hand, False)
 
