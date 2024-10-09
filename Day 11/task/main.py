@@ -154,19 +154,12 @@ def blackjack():
     # Ask the player if they want to play again.
     question_play_again = ""
     while not(question_play_again.startswith("y") or question_play_again.startswith("n")):
-        question_play_again = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
+        question_play_again = input("Do you want to play another game of Blackjack? Type 'y' or 'n': ").lower()
 
     # Start a new game.
     if question_play_again.startswith("y"):
         print("\n" * 20)
         blackjack()
 
-# Ask the player if they want to play.
-question_play = ""
-while not(question_play.startswith("y") or question_play.startswith("n")):
-    question_play = input("Do you want to play a game of Blackjack? Type 'y' or 'n': ").lower()
-
 # Start a game.
-if question_play.startswith("y"):
-    print("")
-    blackjack()
+blackjack()
