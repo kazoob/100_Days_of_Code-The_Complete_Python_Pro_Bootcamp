@@ -15,7 +15,7 @@ class bcolors:
 deck_new = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card(deck):
-    """Deal a card from the deck. Does not remove the card from the deck."""
+    """Deal a random card from the deck. Does not remove the card from the deck."""
     # TODO Remove dealt card from deck.
     return random.choice(deck)
 
