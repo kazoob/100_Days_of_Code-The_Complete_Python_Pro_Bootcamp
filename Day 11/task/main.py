@@ -130,6 +130,7 @@ def blackjack():
 
         print_hands(player_hand, dealer_hand, False)
 
+        # TODO Move score checking into separate function
         # Dealer has Blackjack, dealer wins.
         if score_hand(dealer_hand) == 0:
             print(f"{bcolors.FAIL}** Dealer has Blackjack! You lose. :( **{bcolors.ENDC}\n")
