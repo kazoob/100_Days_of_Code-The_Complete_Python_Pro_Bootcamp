@@ -12,6 +12,7 @@ class bcolors:
 
 # Contents of a new deck of cards
 # TODO Expand cards in deck.
+# TODO Change to dictionary with card symbols and values (e.g. {"A":11})
 deck_new = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card(deck):
