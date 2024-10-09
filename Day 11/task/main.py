@@ -77,7 +77,7 @@ def blackjack():
     dealer_hand = []
 
     # Deal 2 cards to player and dealer.
-    for x in range(2):
+    for _ in range(2):
         player_hand.append(deal_card(deck_current))
         dealer_hand.append(deal_card(deck_current))
 
