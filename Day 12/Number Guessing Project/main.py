@@ -15,8 +15,7 @@ HIGH_RANGE = 100
 EASY_ATTEMPTS = 10
 HARD_ATTEMPTS = 5
 
-play_again = "yes"
-while play_again.startswith("y"):
+def game():
     print(logo)
     print("Welcome to the Number Guessing Game!\n")
     print(f"I'm thinking of a number between {LOW_RANGE} and {HIGH_RANGE}.\n")
@@ -54,4 +53,7 @@ while play_again.startswith("y"):
                 print(f"{bcolors.RED}You have run out of guesses, you lose 😢.{bcolors.ENDC}\n")
                 game_over = True
 
+play_again = "yes"
+while play_again.startswith("y"):
+    game()
     play_again = input("Would you like to play again? Type 'yes' or 'no': ").lower()
