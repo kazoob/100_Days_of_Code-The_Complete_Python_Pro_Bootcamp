@@ -25,7 +25,7 @@ while play_again.startswith("y"):
 
     attempts_left = 0
     game_over = False
-    answer = random.randint(LOW_RANGE, HIGH_RANGE + 1)
+    answer = random.randint(LOW_RANGE, HIGH_RANGE)
 
     if difficulty.startswith('e'):
         attempts_left = EASY_ATTEMPTS
