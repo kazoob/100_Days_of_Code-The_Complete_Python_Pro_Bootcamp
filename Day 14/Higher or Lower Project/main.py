@@ -26,7 +26,7 @@ def print_new_round(pick_a, pick_b, score):
     print(f"Current score: {score}\n")
     print(f"Compare A: {pick_a['name']}, a {pick_a['description']}, from {pick_a['country']}")
     print(vs)
-    print(f"Compare B: {pick_b['name']}, a {pick_b['description']}, from {pick_b['country']}\n")
+    print(f"Against B: {pick_b['name']}, a {pick_b['description']}, from {pick_b['country']}\n")
 
 
 def game():
