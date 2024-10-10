@@ -39,13 +39,15 @@ def check_answer(choice, pick_a_count, pick_b_count):
 
 
 def game():
-    pick_a = new_pick(data, None)
-    pick_b = new_pick(data, pick_a)
+    pick_b = new_pick(data, None)
 
     score = 0
     game_over = False
 
     while not game_over:
+        pick_a = pick_b
+        pick_b = new_pick(data, pick_a)
+
         pick_a_follower_count = int(pick_a['follower_count'])
         pick_b_follower_count = int(pick_b['follower_count'])
 
@@ -55,8 +57,6 @@ def game():
 
         if check_answer(choice, pick_a_follower_count, pick_b_follower_count):
             score += 1
-            pick_a = pick_b
-            pick_b = new_pick(data, pick_a)
         else:
             game_over = True
             print_game_over(score)
