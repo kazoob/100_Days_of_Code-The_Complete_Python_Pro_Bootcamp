@@ -29,6 +29,15 @@ def print_new_round(pick_a, pick_b, score):
     print(f"Against B: {pick_b['name']}, a {pick_b['description']}, from {pick_b['country']}\n")
 
 
+def check_answer(choice, pick_a_count, pick_b_count):
+        if choice == "A" and pick_a_count > pick_b_count:
+            return True
+        elif choice == "B" and pick_b_count > pick_a_count:
+            return True
+        else:
+            return False
+
+
 def game():
     pick_a = new_pick(data, None)
     pick_b = new_pick(data, pick_a)
@@ -44,7 +53,7 @@ def game():
 
         choice = input("Who has more followers? Type 'A' or 'B': ").upper()
 
-        if (choice == "A" and pick_a_follower_count > pick_b_follower_count) or (choice == "B" and pick_b_follower_count > pick_a_follower_count):
+        if check_answer(choice, pick_a_follower_count, pick_b_follower_count):
             score += 1
             pick_a = pick_b
             pick_b = new_pick(data, pick_a)
