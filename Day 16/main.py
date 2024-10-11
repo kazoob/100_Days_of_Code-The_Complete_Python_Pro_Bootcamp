@@ -24,6 +24,7 @@ while choice != "off":
     if choice != "off":
         if choice == "report":
             my_coffee.report()
+            my_money.report()
             print()
         else:
             drink = my_menu.find_drink(choice)
