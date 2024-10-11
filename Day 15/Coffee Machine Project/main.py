@@ -98,11 +98,18 @@ def coffee_maker(command):
         if check_resources(coffee_type, resources):
 
             # Ask the user for coins to pay for the coffee.
-            coins_collected = {}
             for coin in COINS:
-                coin_input = int(input(f"How many {coin}?: "))
-                # Log the number of each coin received.
-                coins_collected[coin] = coin_input
+
+                # Validate the user input, ensure int.
+                while True:
+                    coin_input = input(f"How many {coin}?: ")
+                    try:
+                        coin_input = int(coin_input)
+                    except ValueError:
+                        print("Invalid entry.")
+                        continue
+                    break
+
                 # Total amount of money collected.
                 money_collected += coin_input * COINS[coin]
 
@@ -130,10 +137,14 @@ def coffee_maker(command):
 # Run the coffee machine until "off" is entered.
 user_input = ""
 while user_input != "off":
+
     user_input = ""
+
     # Get command from user. If an invalid choice is entered, ask again.
     while user_input not in VALID_COMMANDS:
         user_input = input("What would you like? (espresso/latte/cappuccino): ").lower()
+
     print("")
+
     if user_input != "off":
         coffee_maker(user_input)
