@@ -2,14 +2,6 @@ from menu import Menu, MenuItem
 from coffee_maker import CoffeeMaker
 from money_machine import MoneyMachine
 
-# List of coins accepted and values.
-COINS = {
-    "quarters": 0.25,
-    "dimes": 0.10,
-    "nickles": 0.05,
-    "pennies": 0.01,
-}
-
 valid_commands = [
     "off",
     "report",
