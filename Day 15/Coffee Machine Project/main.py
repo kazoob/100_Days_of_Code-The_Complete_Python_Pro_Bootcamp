@@ -98,6 +98,7 @@ def coffee_maker(command):
         if check_resources(coffee_type, resources):
 
             # Ask the user for coins to pay for the coffee.
+            print(f"Please insert coins to pay ${coffee_cost:.2f}\n")
             for coin in COINS:
 
                 # Validate the user input, ensure int.
@@ -131,7 +132,7 @@ def coffee_maker(command):
 
                 # Make coffee
                 make_coffee(coffee_type, resources)
-                print(f"Here is your {coffee_type}. Enjoy!\n")
+                print(f"Here is your {coffee_type} ☕️. Enjoy!\n")
 
 
 # Run the coffee machine until "off" is entered.
