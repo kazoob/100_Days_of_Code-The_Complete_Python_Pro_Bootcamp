@@ -69,10 +69,34 @@ turt.color("orange")
 
 # Challenge 5
 
-turt.pensize(10)
+# turt.pensize(10)
+# turt.speed('fastest')
+#
+# for i in range(0,200):
+#     scr.colormode(255)
+#     max_rgb = int(scr.colormode())
+#
+#     r = random.randint(0, max_rgb)
+#     g = random.randint(0, max_rgb)
+#     b = random.randint(0, max_rgb)
+#
+#     rgb = (r, g, b)
+#
+#     print(rgb)
+#
+#     turt.pencolor(rgb)
+#
+#     turt.forward(20)
+#
+#     angle = random.randint(0,3) * 90
+#     turt.setheading(angle)
+
+# Challenge 6
+
+turt.pensize(1)
 turt.speed('fastest')
 
-for i in range(0,200):
+for i in range(0,90):
     scr.colormode(255)
     max_rgb = int(scr.colormode())
 
@@ -81,15 +105,11 @@ for i in range(0,200):
     b = random.randint(0, max_rgb)
 
     rgb = (r, g, b)
-
-    print(rgb)
-
     turt.pencolor(rgb)
 
-    turt.forward(20)
+    turt.circle(100)
 
-    angle = random.randint(0,3) * 90
-    turt.setheading(angle)
+    turt.setheading(i * 4)
 
 
 
