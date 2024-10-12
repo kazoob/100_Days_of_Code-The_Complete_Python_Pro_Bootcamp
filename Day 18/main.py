@@ -27,6 +27,7 @@ turt = Turtle()
 turt.shape("turtle")
 turt.speed("fastest")
 turt.penup()
+turt.hideturtle()
 
 for r in range(0, ROWS):
     for c in range(0, COLS):
