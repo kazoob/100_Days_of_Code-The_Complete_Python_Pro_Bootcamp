@@ -1,3 +1,4 @@
+from random import randint
 from turtle import Turtle, Screen
 import random
 
@@ -36,7 +37,24 @@ turt.color("orange")
 
 # Challenge 3
 
-for i in range(3,11):
+# for i in range(3,11):
+#     max_rgb = int(scr.colormode())
+#     r = random.randint(0, max_rgb)
+#     g = random.randint(0, max_rgb)
+#     b = random.randint(0, max_rgb)
+#
+#     turt.pencolor(r, g, b)
+#
+#     for s in range(0,i):
+#         turt.forward(100)
+#         turt.right(360/i)
+
+# Challenge 4
+
+turt.pensize(10)
+turt.speed('fastest')
+
+for i in range(0,200):
     max_rgb = int(scr.colormode())
     r = random.randint(0, max_rgb)
     g = random.randint(0, max_rgb)
@@ -44,10 +62,10 @@ for i in range(3,11):
 
     turt.pencolor(r, g, b)
 
-    for s in range(0,i):
-        turt.forward(100)
-        turt.right(360/i)
+    turt.forward(20)
 
+    angle = random.randint(0,3) * 90
+    turt.setheading(angle)
 
 
 
