@@ -15,7 +15,7 @@ scr.setup(width=SCREEN_WIDTH, height=SCREEN_WIDTH)
 scr.title(SCREEN_TITLE)
 scr.bgcolor(SCREEN_BGCOLOR)
 
-snake = Snake(SNAKE_INITIAL_LENGTH, SNAKE_COLOR)
+snake = Snake(length=SNAKE_INITIAL_LENGTH, color=SNAKE_COLOR)
 
 scr.listen()
 scr.onkeypress(key="w", fun=snake.set_direction_up)

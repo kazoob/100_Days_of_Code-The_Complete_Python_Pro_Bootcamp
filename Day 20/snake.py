@@ -12,13 +12,7 @@ class Snake:
             y_pos = 0
 
             turtle = Turtle(shape='square')
-            # TODO remove colors
-            if i == 0:
-                turtle.color(color)
-            elif i == 1:
-                turtle.color("red")
-            else:
-                turtle.color("blue")
+            turtle.color(color)
             turtle.penup()
             turtle.speed(speed="fastest")
             turtle.teleport(x=x_pos, y=y_pos)
