@@ -36,16 +36,20 @@ class Snake:
             self.head.forward(20)
 
     def set_direction_up(self):
-        self.head.setheading(90)
+        if self.head.heading() != 270:
+            self.head.setheading(90)
 
     def set_direction_down(self):
-        self.head.setheading(270)
+        if self.head.heading() != 90:
+            self.head.setheading(270)
 
     def set_direction_left(self):
-        self.head.setheading(180)
+        if self.head.heading() != 0:
+            self.head.setheading(180)
 
     def set_direction_right(self):
-        self.head.setheading(0)
+        if self.head.heading() != 180:
+            self.head.setheading(0)
 
     def is_game_over(self):
         return False
