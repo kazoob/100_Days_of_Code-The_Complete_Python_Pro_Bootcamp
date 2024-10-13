@@ -15,9 +15,8 @@ TURTLE_COLORS = [
 SCREEN_WIDTH = 500
 SCREEN_HEIGHT = 400
 
-# Start and finish lines.
-START_X = (-1 * SCREEN_WIDTH / 2) + 40
-END_X = (SCREEN_WIDTH / 2) - 40
+# Start and finish line offset.
+LINE_OFFSET = 40
 
 # Turtle movement parameters.
 MOVE_MIN = 1
@@ -25,6 +24,10 @@ MOVE_MAX = 10
 
 # List of turtles in the race.
 turtles = []
+
+# Start and finish line positions.
+START_X = (-1 * SCREEN_WIDTH / 2) + LINE_OFFSET
+END_X = (SCREEN_WIDTH / 2) - LINE_OFFSET
 
 
 def race_setup():
