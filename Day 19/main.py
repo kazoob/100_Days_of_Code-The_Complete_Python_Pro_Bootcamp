@@ -72,9 +72,9 @@ def get_winner():
     winner_pos = 0
 
     # Iterate through each turtle.
-    for i in range(0, len(turtles)):
-        turtle_col = turtles[i].color()[0]
-        turtle_x = turtles[i].xcor()
+    for turtle in turtles:
+        turtle_col = turtle.color()[0]
+        turtle_x = turtle.xcor()
 
         # Check if turtle has passed the finish line.
         if turtle_x > END_X - 18:
@@ -97,10 +97,10 @@ race_setup()
 
 # Compile list of colors for player prompt.
 colors = ""
-for x in range(0, len(TURTLE_COLORS)):
+for color in TURTLE_COLORS:
     if colors != "":
         colors += "/"
-    colors += TURTLE_COLORS[x]
+    colors += color
 
 # Get bet from player.
 bet = ""
