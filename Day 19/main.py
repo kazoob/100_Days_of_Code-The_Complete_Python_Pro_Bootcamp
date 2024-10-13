@@ -8,8 +8,7 @@ TURTLE_COLORS = [
     "yellow",
     "green",
     "blue",
-    "indigo",
-    "violet",
+    "purple",
 ]
 
 # Screen size.
@@ -48,9 +47,7 @@ def race_setup():
 
     # Create and place each turtle.
     for i in range(0, len(TURTLE_COLORS)):
-        turtle = Turtle()
-
-        turtle.shape("turtle")
+        turtle = Turtle(shape="turtle")
         turtle.color(TURTLE_COLORS[i])
         turtle.penup()
         turtle.speed("fastest")
