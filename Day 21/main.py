@@ -17,7 +17,7 @@ scr.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
 scr.title(SCREEN_TITLE)
 scr.bgcolor(SCREEN_BGCOLOR)
 
-snake = Snake(length=SNAKE_INITIAL_LENGTH, color=SNAKE_COLOR)
+snake = Snake(length=SNAKE_INITIAL_LENGTH, color=SNAKE_COLOR, screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
 food = Food(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
 scoreboard = Scoreboard(screen_height=SCREEN_HEIGHT)
 
@@ -33,13 +33,18 @@ scr.onkeypress(key="Right", fun=snake.set_direction_right)
 scr.onkeypress(key="space", fun=snake.start_stop)
 scr.tracer(0)
 
-while not snake.is_game_over():
+game_over = False
+while not game_over:
     snake.move_forward()
 
     if snake.head.distance(food) < 15:
         food.move()
         snake.food_collected()
         scoreboard.increase_score()
+
+    if snake.is_game_over():
+        game_over = True
+        scoreboard.game_over()
 
     scr.update()
     time.sleep(0.1)

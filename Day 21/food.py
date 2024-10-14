@@ -20,7 +20,7 @@ class Food(Turtle):
         self.speed("fastest")
 
         self.x_min = int(((screen_width / 2) - 20) * -1)
-        self.x_max = int((screen_height / 2) - 20)
+        self.x_max = int((screen_height / 2) - 40)
         self.y_min = int(((screen_width / 2) - 20) * -1)
         self.y_max = int((screen_height / 2) - 20)
 

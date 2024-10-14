@@ -14,8 +14,18 @@ class Snake:
     moving = False
     color = None
 
-    def __init__(self, length, color):
+    x_min = None
+    x_max = None
+    y_min = None
+    y_max = None
+
+    def __init__(self, length, color, screen_width, screen_height):
         self.color = color
+
+        self.x_min = int(((screen_width / 2) - 20) * -1)
+        self.x_max = int((screen_height / 2) - 20)
+        self.y_min = int(((screen_width / 2) - 20) * -1)
+        self.y_max = int((screen_height / 2) - 20)
 
         for i in range(0, length):
             x_pos = -20 * i
@@ -71,4 +81,13 @@ class Snake:
         self.add_piece(x_pos, y_pos)
 
     def is_game_over(self):
-        return False
+        if self.head.xcor() > self.x_max:
+            return True
+        elif self.head.xcor() < self.x_min:
+            return True
+        elif self.head.ycor() < self.y_min:
+            return True
+        elif self.head.ycor() < self.y_min:
+            return True
+        else:
+            return False
