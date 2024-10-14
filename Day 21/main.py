@@ -73,6 +73,7 @@ while not game_over:
     scr.update()
 
     # Game delay.
+    # TODO speed up game on food collect
     time.sleep(0.1)
 
 # Leave screen visible until mouse click.

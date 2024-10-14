@@ -99,6 +99,7 @@ class Snake:
     def is_game_over(self):
         """Check for all game over conditions, return True if game over, otherwise False.
         Game over conditions are wall collisions or snake body collisions."""
+        # TODO better wall collision check
         # Check for up collision.
         if self.head.xcor() > self.x_max:
             return True
