@@ -1,5 +1,7 @@
 from turtle import Turtle
 
+TURTLE_SHAPE = "square"
+
 UP = 90
 DOWN = 270
 LEFT = 180
@@ -51,7 +53,7 @@ class Snake:
             self.head.setheading(RIGHT)
 
     def add_piece(self, x_pos, y_pos):
-        turtle = Turtle(shape='square')
+        turtle = Turtle(shape=TURTLE_SHAPE)
         turtle.color(self.color)
         turtle.penup()
         turtle.speed(speed="fastest")

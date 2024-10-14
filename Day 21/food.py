@@ -1,6 +1,9 @@
 from turtle import Turtle
 import random
 
+SHAPE = "circle"
+COLOR = "orange"
+
 
 class Food(Turtle):
     x_min = None
@@ -10,9 +13,9 @@ class Food(Turtle):
 
     def __init__(self, screen_width, screen_height):
         super().__init__()
-        self.shape("circle")
+        self.shape(SHAPE)
         self.penup()
-        self.color("orange")
+        self.color(COLOR)
         self.shapesize(stretch_wid=0.5, stretch_len=0.5)
         self.speed("fastest")
 
