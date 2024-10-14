@@ -30,4 +30,4 @@ class Scoreboard(Turtle):
 
     def game_over(self):
         self.teleport(x=0, y=0)
-        self.write("Game over", align=ALIGN, font=FONT)
+        self.write("GAME OVER", align=ALIGN, font=FONT)

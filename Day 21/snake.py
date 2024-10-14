@@ -1,5 +1,4 @@
 from turtle import Turtle
-from wsgiref.validate import header_re
 
 TURTLE_SHAPE = "square"
 
@@ -91,8 +90,7 @@ class Snake:
         elif self.head.ycor() < self.y_min:
             return True
         else:
-            for t in self.turtles:
-                if self.turtles.index(t) != 0:
-                    if self.head.distance(t) < 15:
-                        return True
+            for t in self.turtles[1:]:
+                if self.head.distance(t) < 10:
+                    return True
             return False
