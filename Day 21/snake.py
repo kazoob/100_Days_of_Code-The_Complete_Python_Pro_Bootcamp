@@ -5,29 +5,24 @@ DOWN = 270
 LEFT = 180
 RIGHT = 0
 
+
 class Snake:
     turtles = []
     head = None
     moving = False
+    color = None
 
     def __init__(self, length, color):
+        self.color = color
+
         for i in range(0, length):
             x_pos = -20 * i
             y_pos = 0
 
-            turtle = Turtle(shape='square')
-            turtle.color(color)
-            turtle.penup()
-            turtle.speed(speed="fastest")
-            turtle.teleport(x=x_pos, y=y_pos)
+            self.add_piece(x_pos, y_pos)
 
-            self.turtles.append(turtle)
-
-            if i == 0:
-                self.head = turtle
-
-    def start(self):
-        self.moving = True
+    def start_stop(self):
+        self.moving = not self.moving
 
     def move_forward(self):
         if self.moving:
@@ -54,6 +49,24 @@ class Snake:
     def set_direction_right(self):
         if self.head.heading() != LEFT:
             self.head.setheading(RIGHT)
+
+    def add_piece(self, x_pos, y_pos):
+        turtle = Turtle(shape='square')
+        turtle.color(self.color)
+        turtle.penup()
+        turtle.speed(speed="fastest")
+        turtle.teleport(x=x_pos, y=y_pos)
+
+        if not self.turtles:
+            self.head = turtle
+
+        self.turtles.append(turtle)
+
+    def food_collected(self):
+        x_pos = self.turtles[-1].xcor()
+        y_pos = self.turtles[-1].ycor()
+
+        self.add_piece(x_pos, y_pos)
 
     def is_game_over(self):
         return False

@@ -37,6 +37,7 @@ while not snake.is_game_over():
 
     if snake.head.distance(food) < 15:
         food.move()
+        snake.food_collected()
 
     time.sleep(0.1)
 
