@@ -1,6 +1,7 @@
 from turtle import Screen
 from snake import Snake
 from food import Food
+from scoreboard import Scoreboard
 import time
 
 SCREEN_WIDTH = 600
@@ -18,6 +19,7 @@ scr.bgcolor(SCREEN_BGCOLOR)
 
 snake = Snake(length=SNAKE_INITIAL_LENGTH, color=SNAKE_COLOR)
 food = Food(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
+scoreboard = Scoreboard(screen_height=SCREEN_HEIGHT)
 
 scr.listen()
 scr.onkeypress(key="w", fun=snake.set_direction_up)
@@ -38,6 +40,7 @@ while not snake.is_game_over():
     if snake.head.distance(food) < 15:
         food.move()
         snake.food_collected()
+        scoreboard.add_score()
 
     time.sleep(0.1)
 
