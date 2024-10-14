@@ -3,6 +3,7 @@ from turtle import Turtle
 ALIGN = "center"
 FONT = ('Courier', 18, 'normal')
 
+
 class Scoreboard(Turtle):
     score = 0
 
