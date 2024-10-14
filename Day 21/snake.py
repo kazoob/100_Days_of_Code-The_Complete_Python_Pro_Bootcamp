@@ -109,7 +109,7 @@ class Snake:
         elif self.head.ycor() < self.y_min:
             return True
         # Check for right collision.
-        elif self.head.ycor() < self.y_min:
+        elif self.head.ycor() > self.y_max:
             return True
         else:
             # Check for head collision with the rest of the body.
