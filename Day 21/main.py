@@ -35,13 +35,13 @@ scr.tracer(0)
 
 while not snake.is_game_over():
     snake.move_forward()
-    scr.update()
 
     if snake.head.distance(food) < 15:
         food.move()
         snake.food_collected()
-        scoreboard.add_score()
+        scoreboard.increase_score()
 
+    scr.update()
     time.sleep(0.1)
 
 scr.exitonclick()
