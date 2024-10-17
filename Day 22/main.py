@@ -1,6 +1,7 @@
 from turtle import Screen
 from board import Board
 from paddle import Paddle
+from ball import Ball
 from scoreboard import Scoreboard
 
 # Set screen options.
@@ -21,6 +22,9 @@ board = Board(screen_height=SCREEN_HEIGHT)
 # Initialize the paddles.
 paddle1 = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player=1)
 paddle2 = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player=2)
+
+# Initialize the ball.
+ball = Ball(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
 
 # Initialize scoreboard.
 scoreboard = Scoreboard(screen_height=SCREEN_HEIGHT)
