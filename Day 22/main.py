@@ -1,5 +1,6 @@
 from turtle import Screen
 from board import Board
+from paddle import Paddle
 from scoreboard import Scoreboard
 
 # Set screen options.
@@ -17,11 +18,19 @@ scr.bgcolor(SCREEN_BGCOLOR)
 # Initialize board.
 board = Board(screen_height=SCREEN_HEIGHT)
 
+# Initialize the paddles.
+paddle1 = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player=1)
+paddle2 = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player=2)
+
 # Initialize scoreboard.
 scoreboard = Scoreboard(screen_height=SCREEN_HEIGHT)
 
 # Set up screen keyboard listening.
 scr.listen()
+scr.onkeypress(key="w", fun=paddle1.move_up)
+scr.onkeypress(key="s", fun=paddle1.move_down)
+scr.onkeypress(key="Up", fun=paddle2.move_up)
+scr.onkeypress(key="Down", fun=paddle2.move_down)
 
 # Run game until game over.
 game_over = False
