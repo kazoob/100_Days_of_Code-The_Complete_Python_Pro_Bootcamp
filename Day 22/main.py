@@ -35,6 +35,7 @@ scr.onkeypress(key="w", fun=paddle1.move_up)
 scr.onkeypress(key="s", fun=paddle1.move_down)
 scr.onkeypress(key="Up", fun=paddle2.move_up)
 scr.onkeypress(key="Down", fun=paddle2.move_down)
+scr.onkeypress(key="space", fun=ball.start)
 
 # Run game until game over.
 game_over = False
