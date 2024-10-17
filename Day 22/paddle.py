@@ -12,7 +12,8 @@ class Paddle(Turtle):
 
     def __init__(self, screen_width, screen_height, player):
         """Create a new paddle on the correct side for the provided player.
-        screen_width and screen_height are used to calculate the y-axis bounds."""
+        screen_width is used to position the paddles.
+        screen_height is used to calculate the y-axis bounds."""
         super().__init__()
 
         # Calculate y-axis bounds.
