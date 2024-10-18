@@ -4,6 +4,7 @@ SCREEN_OFFSET = 100
 
 PADDLE_WIDTH = 1
 PADDLE_HEIGHT = 4
+PADDLE_COLOR = "white"
 
 
 class Paddle(Turtle):
@@ -18,18 +19,18 @@ class Paddle(Turtle):
 
         # Calculate y-axis bounds.
         self.y_max = int(screen_height / 2)
-        self.y_min = -1 * int(screen_height / 2)
+        self.y_min = -self.y_max
 
-        # Set up the paddle
+        # Set up the paddle.
         self.shape("square")
-        self.color("white")
+        self.color(PADDLE_COLOR)
         self.speed("fastest")
         self.penup()
         self.shapesize(stretch_wid=PADDLE_HEIGHT, stretch_len=PADDLE_WIDTH)
 
-        # Position paddle on correct side according to player
+        # Position paddle on correct side according to player.
         if player == 1:
-            x_pos = int(-1 * screen_width / 2) + SCREEN_OFFSET
+            x_pos = int(-screen_width / 2) + SCREEN_OFFSET
         else:
             self.setheading(180)
             x_pos = int(screen_width / 2) - SCREEN_OFFSET
