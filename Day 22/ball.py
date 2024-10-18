@@ -1,9 +1,9 @@
 from turtle import Turtle
 import random
-import time
 
 BALL_SIZE = 0.75
-BALL_SPEED = 3 # slow
+BALL_SPEED = 3  # slow
+BALL_COLOR = "white"
 
 
 class Ball(Turtle):
@@ -12,25 +12,32 @@ class Ball(Turtle):
     y_min = 0
     y_max = 0
 
-    def __init__(self, screen_width, screen_height):
+    player1 = None
+    player2 = None
+
+    def __init__(self, screen_width, screen_height, player1, player2):
         """Create a new ball in the middle of the screen.
         screen_width and screen_height are used to calculate the x-axis and y-axis bounds."""
         super().__init__()
 
+        # Save the paddles for collision detection.
+        self.player1 = player1
+        self.player2 = player2
+
         # Calculate axis bounds.
         self.x_max = int(screen_width / 2)
-        self.x_min = -1 * int(screen_width / 2)
+        self.x_min = -self.x_max
         self.y_max = int(screen_height / 2)
-        self.y_min = -1 * int(screen_height / 2)
+        self.y_min = -self.y_max
 
-        # Set up the ball
+        # Set up the ball.
         self.shape("square")
-        self.color("white")
+        self.color(BALL_COLOR)
         self.speed(BALL_SPEED)
         self.penup()
         self.shapesize(stretch_wid=BALL_SIZE, stretch_len=BALL_SIZE)
 
-        # Position the ball
+        # Position the ball.
         self.teleport(x=0, y=0)
 
     def start(self):
@@ -41,16 +48,55 @@ class Ball(Turtle):
         heading = random.randint(-75, 75) + player_start
 
         # Set the heading.
-        self.speed("fastest")
-        self.setheading(heading)
-        self.speed(BALL_SPEED)
+        self.set_ball_heading(heading)
 
-        # Start moving the ball
+        # Start moving the ball.
         self.move()
 
     def move(self):
-        # Move the ball one unit forward
+        # Check for screen collision.
+        # Top of screen.
+        if self.ycor() >= self.y_max:
+            self.set_ball_heading(0 - self.heading())
+
+        # Bottom of screen.
+        if self.ycor() <= self.y_min:
+            self.set_ball_heading(360 - self.heading())
+
+        # Check for paddle collision.
+        # player1_col = False
+        # player2_col = False
+        #
+        # if self.player1.xcor() - self.xcor() > -20:
+        #     player1_col = False
+        #
+        # if self.player2.xcor() - self.xcor() < 20:
+        #     player2_col = False
+        #
+        # if player1_col or player2_col:
+        #     # Change heading
+        #     self.set_ball_heading(180 + self.heading())
+
+        # Move the ball one unit forward.
         self.forward(20 * BALL_SIZE)
 
-        # Continue moving the ball
+        # Continue moving the ball.
         self.move()
+
+    def set_ball_heading(self, heading):
+        """Set the ball heading. Disable screen updates during the change. Set tilt angle to prevent rotation."""
+        # Disable screen updates.
+        self.screen.tracer(0)
+
+        self.speed("fastest")
+
+        # Set the heading.
+        self.setheading(heading)
+
+        # Set the tilt angle to prevent rotation.
+        self.tiltangle(-heading % 90)
+
+        self.speed(BALL_SPEED)
+
+        # Enable screen updates.
+        self.screen.tracer(1)

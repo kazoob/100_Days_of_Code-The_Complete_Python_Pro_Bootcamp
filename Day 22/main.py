@@ -24,7 +24,7 @@ paddle1 = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player=
 paddle2 = Paddle(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player=2)
 
 # Initialize the ball.
-ball = Ball(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
+ball = Ball(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT, player1=paddle1, player2=paddle2)
 
 # Initialize scoreboard.
 scoreboard = Scoreboard(screen_height=SCREEN_HEIGHT)
