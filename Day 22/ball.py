@@ -60,7 +60,7 @@ class Ball(Turtle):
             self.set_ball_heading(0 - self.heading())
 
         # Bottom of screen.
-        if self.ycor() <= self.y_min:
+        if self.ycor() <= self.y_min + 20 * BALL_SIZE:
             self.set_ball_heading(360 - self.heading())
 
         # Check for paddle collision.
