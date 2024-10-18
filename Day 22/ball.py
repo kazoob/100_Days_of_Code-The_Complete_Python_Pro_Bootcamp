@@ -64,18 +64,11 @@ class Ball(Turtle):
             self.set_ball_heading(360 - self.heading())
 
         # Check for paddle collision.
-        # player1_col = False
-        # player2_col = False
-        #
-        # if self.player1.xcor() - self.xcor() > -20:
-        #     player1_col = False
-        #
-        # if self.player2.xcor() - self.xcor() < 20:
-        #     player2_col = False
-        #
-        # if player1_col or player2_col:
-        #     # Change heading
-        #     self.set_ball_heading(180 + self.heading())
+        if self.player1.ball_collision(self) or self.player2.ball_collision(self):
+            if 0 < self.heading() < 180:
+                self.set_ball_heading(180 - self.heading())
+            else:
+                self.set_ball_heading(540 - self.heading())
 
         # Move the ball one unit forward.
         self.forward(20 * BALL_SIZE)
