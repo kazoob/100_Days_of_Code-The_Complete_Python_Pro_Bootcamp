@@ -3,12 +3,22 @@ from board import Board
 from paddle import Paddle
 from ball import Ball
 from scoreboard import Scoreboard
+import time
 
 # Set screen options.
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Pong"
 SCREEN_BGCOLOR = "black"
+
+
+def start_round():
+    ball.reset_ball()
+
+    time.sleep(0.5)
+
+    ball.move_ball()
+
 
 # Initialize screen.
 scr = Screen()
@@ -35,7 +45,7 @@ scr.onkeypress(key="w", fun=paddle1.move_up)
 scr.onkeypress(key="s", fun=paddle1.move_down)
 scr.onkeypress(key="Up", fun=paddle2.move_up)
 scr.onkeypress(key="Down", fun=paddle2.move_down)
-scr.onkeypress(key="space", fun=ball.reset_ball)
+scr.onkeypress(key="space", fun=start_round)
 
 # Run game until game over.
 game_over = False

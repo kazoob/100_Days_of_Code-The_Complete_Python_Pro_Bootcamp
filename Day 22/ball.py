@@ -1,6 +1,5 @@
 from turtle import Turtle
 import random
-import time
 
 BALL_SIZE = 0.75
 BALL_SPEED = 3  # slow
@@ -39,19 +38,12 @@ class Ball(Turtle):
         self.shapesize(stretch_wid=BALL_SIZE, stretch_len=BALL_SIZE)
 
         # Position the ball.
-        self.teleport(x=0, y=0)
+        self.reset_ball()
 
     def reset_ball(self):
         # Position the ball.
         self.teleport(x=0, y=0)
 
-        # Wait 1 second
-        time.sleep(1)
-
-        # Start the ball.
-        self.start_ball()
-
-    def start_ball(self):
         # Choose a random starting direction.
         player_start = random.choice([0, 180])
 
@@ -60,9 +52,6 @@ class Ball(Turtle):
 
         # Set the heading.
         self.set_ball_heading(heading)
-
-        # Start moving the ball.
-        self.move_ball()
 
     def move_ball(self):
         # Check for screen collision.
