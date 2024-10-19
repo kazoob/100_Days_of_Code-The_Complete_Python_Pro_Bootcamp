@@ -73,9 +73,6 @@ class Ball(Turtle):
         # Move the ball one unit forward.
         self.forward(20 * BALL_SIZE)
 
-        # Continue moving the ball.
-        self.move_ball()
-
     def set_ball_heading(self, heading):
         """Set the ball heading. Disable screen updates during the change. Set tilt angle to prevent rotation."""
         # Disable screen updates.
@@ -93,3 +90,11 @@ class Ball(Turtle):
 
         # Enable screen updates.
         self.screen.tracer(1)
+
+    def score(self):
+        if self.xcor() <= self.x_min:
+            return 2
+        elif self.xcor() >= self.x_max:
+            return 1
+
+        return 0

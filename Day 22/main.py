@@ -13,11 +13,19 @@ SCREEN_BGCOLOR = "black"
 
 
 def start_round():
-    ball.reset_ball()
-
     time.sleep(0.5)
 
-    ball.move_ball()
+    player_win = 0
+    while player_win == 0:
+        ball.move_ball()
+        player_win = ball.score()
+
+    if player_win == 1:
+        scoreboard.player1_point()
+    else:
+        scoreboard.player2_point()
+
+    ball.reset_ball()
 
 
 # Initialize screen.
