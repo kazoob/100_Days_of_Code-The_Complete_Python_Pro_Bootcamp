@@ -30,3 +30,11 @@ class Scoreboard(Turtle):
         """Update the scoreboard."""
         self.clear()
         self.write(f"{self.player1_score}  {self.player2_score}", align=ALIGN, font=FONT)
+
+    def player1_point(self):
+        self.player1_score += 1
+        self.update_score()
+
+    def player2_point(self):
+        self.player2_score += 1
+        self.update_score()
