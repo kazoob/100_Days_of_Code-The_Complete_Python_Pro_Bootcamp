@@ -13,18 +13,31 @@ SCREEN_BGCOLOR = "black"
 
 
 def start_round():
+    """Start a new round. While a player has not scored, continue moving the ball."""
+    # Reset ball to center of the screen.
+    ball.reset_ball()
+
+    # Short pause
     time.sleep(0.5)
 
+    # Loop while a player has not scored, move ball.
     player_win = 0
     while player_win == 0:
         ball.move_ball()
+
+        # Check if player has scored.
         player_win = ball.score()
 
+    # Player 1 has scored.
     if player_win == 1:
+        # Increase player 1 score.
         scoreboard.player1_point()
+    # Player 2 has scored.
     else:
+        # Increase player 2 score.
         scoreboard.player2_point()
 
+    # Round over, reset ball to center of the screen.
     ball.reset_ball()
 
 
@@ -54,10 +67,6 @@ scr.onkeypress(key="s", fun=paddle1.move_down)
 scr.onkeypress(key="Up", fun=paddle2.move_up)
 scr.onkeypress(key="Down", fun=paddle2.move_down)
 scr.onkeypress(key="space", fun=start_round)
-
-# Run game until game over.
-game_over = False
-# while not game_over:
 
 # Leave screen visible until mouse click.
 scr.exitonclick()
