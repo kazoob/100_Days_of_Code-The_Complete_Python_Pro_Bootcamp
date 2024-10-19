@@ -58,6 +58,7 @@ class Paddle(Turtle):
 
     def ball_collision(self, ball):
         # TODO better detection
+        # TODO prevent ball jitter
         # Calculate paddle y-axis range.
         paddle_x_right = self.xcor() + TURTLE_SIZE * PADDLE_WIDTH / 2
         paddle_x_left = self.xcor() - TURTLE_SIZE * PADDLE_WIDTH / 2
