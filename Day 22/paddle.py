@@ -60,8 +60,8 @@ class Paddle(Turtle):
         # TODO better detection
         # TODO prevent ball jitter
         # Calculate paddle y-axis range.
-        paddle_x_right = self.xcor() + TURTLE_SIZE * PADDLE_WIDTH / 2
-        paddle_x_left = self.xcor() - TURTLE_SIZE * PADDLE_WIDTH / 2
+        paddle_x_right = self.xcor() + TURTLE_SIZE * PADDLE_WIDTH / 2 + TURTLE_SIZE * ball.shapesize()[0] / 2
+        paddle_x_left = self.xcor() - TURTLE_SIZE * PADDLE_WIDTH / 2 - TURTLE_SIZE * ball.shapesize()[0] / 2
 
         # Check for x-axis collision.
         if paddle_x_left <= ball.xcor() <= paddle_x_right:
