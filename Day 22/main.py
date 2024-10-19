@@ -6,7 +6,7 @@ from scoreboard import Scoreboard
 import time
 
 # Set screen options.
-SCREEN_WIDTH = 1200
+SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Pong"
 SCREEN_BGCOLOR = "black"
