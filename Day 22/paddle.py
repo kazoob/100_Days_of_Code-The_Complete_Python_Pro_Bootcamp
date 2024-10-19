@@ -5,6 +5,9 @@ SCREEN_OFFSET = 100
 PADDLE_WIDTH = 1
 PADDLE_HEIGHT = 4
 PADDLE_COLOR = "white"
+PADDLE_MOVEMENT = 60
+
+TURTLE_SIZE = 20
 
 
 class Paddle(Turtle):
@@ -43,28 +46,28 @@ class Paddle(Turtle):
 
     def move_up(self):
         """Moves the paddle up. Will not exceed screen bounds."""
-        y_pos = self.ycor() + 40
+        y_pos = self.ycor() + PADDLE_MOVEMENT
         if y_pos < self.y_max:
             self.sety(y_pos)
 
     def move_down(self):
         """Moves the paddle up. Will not exceed screen bounds."""
-        y_pos = self.ycor() - 40
+        y_pos = self.ycor() - PADDLE_MOVEMENT
         if y_pos > self.y_min:
             self.sety(y_pos)
 
     def ball_collision(self, ball):
         # TODO better detection
         # Calculate paddle y-axis range.
-        paddle_x_right = self.xcor() + 20 * PADDLE_WIDTH / 2
-        paddle_x_left = self.xcor() - 20 * PADDLE_WIDTH / 2
+        paddle_x_right = self.xcor() + TURTLE_SIZE * PADDLE_WIDTH / 2
+        paddle_x_left = self.xcor() - TURTLE_SIZE * PADDLE_WIDTH / 2
 
         # Check for x-axis collision.
         if paddle_x_left <= ball.xcor() <= paddle_x_right:
 
             # Calculate paddle y-axis range.
-            paddle_y_top = self.ycor() + 20 * PADDLE_HEIGHT / 2
-            paddle_y_bot = self.ycor() - 20 * PADDLE_HEIGHT / 2
+            paddle_y_top = self.ycor() + TURTLE_SIZE * PADDLE_HEIGHT / 2
+            paddle_y_bot = self.ycor() - TURTLE_SIZE * PADDLE_HEIGHT / 2
 
             # Check for y-axis collision.
             if paddle_y_bot <= ball.ycor() <= paddle_y_top:

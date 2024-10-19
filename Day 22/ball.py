@@ -5,6 +5,9 @@ BALL_SIZE = 0.75
 BALL_SPEED = 3  # slow
 BALL_COLOR = "white"
 
+START_HEADING_CHOICE = 75
+
+TURTLE_SIZE = 20
 
 class Ball(Turtle):
     x_min = 0
@@ -49,13 +52,13 @@ class Ball(Turtle):
         player_start = random.choice([0, 180])
 
         # Set a random starting heading.
-        heading = random.randint(-75, 75) + player_start
+        heading = random.randint(-START_HEADING_CHOICE, START_HEADING_CHOICE) + player_start
         self.set_ball_heading(heading)
 
     def move_ball(self):
         """Move the ball one unit forward. Check for top or bottom screen collision and change heading."""
         # Move the ball one unit forward.
-        self.forward(20 * BALL_SIZE)
+        self.forward(TURTLE_SIZE * BALL_SIZE)
 
         # Check for screen collision.
         # Top of screen.
@@ -63,7 +66,7 @@ class Ball(Turtle):
             self.set_ball_heading(0 - self.heading())
 
         # Bottom of screen.
-        if self.ycor() <= self.y_min + 20 * BALL_SIZE:
+        if self.ycor() <= self.y_min + TURTLE_SIZE * BALL_SIZE:
             self.set_ball_heading(360 - self.heading())
 
         # Check for paddle collision.

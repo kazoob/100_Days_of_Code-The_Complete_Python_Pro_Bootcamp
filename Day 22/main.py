@@ -11,6 +11,9 @@ SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Pong"
 SCREEN_BGCOLOR = "black"
 
+# Set game options.
+START_DELAY = 0.5
+
 
 def start_round():
     """Start a new round. While a player has not scored, continue moving the ball."""
@@ -18,7 +21,7 @@ def start_round():
     ball.reset_ball()
 
     # Short pause
-    time.sleep(0.5)
+    time.sleep(START_DELAY)
 
     # Loop while a player has not scored, move ball.
     player_win = 0

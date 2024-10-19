@@ -4,6 +4,8 @@ ALIGN = "center"
 FONT_SIZE = 60
 FONT = ('Courier', FONT_SIZE, 'normal')
 
+SCORE_TOP_OFFSET = 10
+
 
 class Scoreboard(Turtle):
     player1_score = 0
@@ -20,7 +22,7 @@ class Scoreboard(Turtle):
         self.speed("fastest")
 
         # Position at top of the screen.
-        y_pos = (screen_height / 2) - (FONT_SIZE + 10)
+        y_pos = (screen_height / 2) - (FONT_SIZE + SCORE_TOP_OFFSET)
         self.teleport(x=0, y=y_pos)
 
         # Draw the initial score.
