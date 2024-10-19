@@ -47,13 +47,13 @@ class Paddle(Turtle):
     def move_up(self):
         """Moves the paddle up. Will not exceed screen bounds."""
         y_pos = self.ycor() + PADDLE_MOVEMENT * TURTLE_SIZE
-        if y_pos < self.y_max:
+        if y_pos < self.y_max + PADDLE_HEIGHT:
             self.sety(y_pos)
 
     def move_down(self):
         """Moves the paddle up. Will not exceed screen bounds."""
         y_pos = self.ycor() - PADDLE_MOVEMENT * TURTLE_SIZE
-        if y_pos > self.y_min:
+        if y_pos > self.y_min - PADDLE_HEIGHT:
             self.sety(y_pos)
 
     def ball_collision(self, ball):
