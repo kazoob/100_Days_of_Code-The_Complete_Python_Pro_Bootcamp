@@ -5,7 +5,7 @@ SCREEN_OFFSET = 100
 PADDLE_WIDTH = 1
 PADDLE_HEIGHT = 4
 PADDLE_COLOR = "white"
-PADDLE_MOVEMENT = 60
+PADDLE_MOVEMENT = 3
 
 TURTLE_SIZE = 20
 
@@ -46,13 +46,13 @@ class Paddle(Turtle):
 
     def move_up(self):
         """Moves the paddle up. Will not exceed screen bounds."""
-        y_pos = self.ycor() + PADDLE_MOVEMENT
+        y_pos = self.ycor() + PADDLE_MOVEMENT * TURTLE_SIZE
         if y_pos < self.y_max:
             self.sety(y_pos)
 
     def move_down(self):
         """Moves the paddle up. Will not exceed screen bounds."""
-        y_pos = self.ycor() - PADDLE_MOVEMENT
+        y_pos = self.ycor() - PADDLE_MOVEMENT * TURTLE_SIZE
         if y_pos > self.y_min:
             self.sety(y_pos)
 
