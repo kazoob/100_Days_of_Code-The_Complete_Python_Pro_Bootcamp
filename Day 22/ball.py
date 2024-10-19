@@ -1,5 +1,6 @@
 from turtle import Turtle
 import random
+import time
 
 BALL_SIZE = 0.75
 BALL_SPEED = 3  # slow
@@ -40,7 +41,17 @@ class Ball(Turtle):
         # Position the ball.
         self.teleport(x=0, y=0)
 
-    def start(self):
+    def reset_ball(self):
+        # Position the ball.
+        self.teleport(x=0, y=0)
+
+        # Wait 1 second
+        time.sleep(1)
+
+        # Start the ball.
+        self.start_ball()
+
+    def start_ball(self):
         # Choose a random starting direction.
         player_start = random.choice([0, 180])
 
@@ -51,9 +62,9 @@ class Ball(Turtle):
         self.set_ball_heading(heading)
 
         # Start moving the ball.
-        self.move()
+        self.move_ball()
 
-    def move(self):
+    def move_ball(self):
         # Check for screen collision.
         # Top of screen.
         if self.ycor() >= self.y_max:
@@ -74,7 +85,7 @@ class Ball(Turtle):
         self.forward(20 * BALL_SIZE)
 
         # Continue moving the ball.
-        self.move()
+        self.move_ball()
 
     def set_ball_heading(self, heading):
         """Set the ball heading. Disable screen updates during the change. Set tilt angle to prevent rotation."""
