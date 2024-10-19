@@ -81,6 +81,7 @@ class Ball(Turtle):
             self.set_ball_heading(360 - self.heading())
 
         # Check for paddle collision.
+        # TODO increase speed
         if self.player1.ball_collision(self) or self.player2.ball_collision(self):
             if 0 < self.heading() < 180:
                 self.set_ball_heading(180 - self.heading())
