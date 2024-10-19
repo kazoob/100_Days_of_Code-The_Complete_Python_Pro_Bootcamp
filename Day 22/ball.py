@@ -9,6 +9,7 @@ START_HEADING_CHOICE = 75
 
 TURTLE_SIZE = 20
 
+
 class Ball(Turtle):
     x_min = 0
     x_max = 0
@@ -17,6 +18,8 @@ class Ball(Turtle):
 
     player1 = None
     player2 = None
+
+    is_reset = False
 
     def __init__(self, screen_width, screen_height, player1, player2):
         """Create a new ball in the middle of the screen.
@@ -45,6 +48,9 @@ class Ball(Turtle):
 
     def reset_ball(self):
         """Reset the ball at the center of the screen. Choose a random starting direction and heading."""
+        # Ball is reset.
+        self.is_reset = True
+
         # Position the ball.
         self.teleport(x=0, y=0)
 
@@ -57,6 +63,10 @@ class Ball(Turtle):
 
     def move_ball(self):
         """Move the ball one unit forward. Check for top or bottom screen collision and change heading."""
+        # Ball is no longer reset.
+        if self.is_reset:
+            self.is_reset = False
+
         # Move the ball one unit forward.
         self.forward(TURTLE_SIZE * BALL_SIZE)
 
@@ -95,13 +105,17 @@ class Ball(Turtle):
         self.screen.tracer(1)
 
     def score(self):
-        """Check if a player has scored. If yes, return player number. If no, return 0."""
+        """Check if a player has scored. If yes, return player number.
+        If none, return 0. If ball is reset, return -1."""
+        # Check if ball is reset.
+        if self.is_reset:
+            return -1
         # Check if player 2 scored.
-        if self.xcor() <= self.x_min:
+        elif self.xcor() <= self.x_min:
             return 2
         # Check if player 1 scored.
         elif self.xcor() >= self.x_max:
             return 1
-
         # No one has scored.
-        return 0
+        else:
+            return 0

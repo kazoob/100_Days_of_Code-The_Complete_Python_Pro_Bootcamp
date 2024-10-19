@@ -17,7 +17,6 @@ START_DELAY = 0.5
 
 def start_round():
     """Start a new round. While a player has not scored, continue moving the ball."""
-    # TODO prevent multiple round starts
     # Reset ball to center of the screen.
     ball.reset_ball()
 
@@ -37,7 +36,7 @@ def start_round():
         # Increase player 1 score.
         scoreboard.player1_point()
     # Player 2 has scored.
-    else:
+    elif player_win == 2:
         # Increase player 2 score.
         scoreboard.player2_point()
 
