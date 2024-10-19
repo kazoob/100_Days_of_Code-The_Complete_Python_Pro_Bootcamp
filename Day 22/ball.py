@@ -71,6 +71,7 @@ class Ball(Turtle):
         self.forward(TURTLE_SIZE * BALL_SIZE)
 
         # Check for screen collision.
+        # TODO randon angle bounce
         # Top of screen.
         if self.ycor() >= self.y_max:
             self.set_ball_heading(0 - self.heading())
