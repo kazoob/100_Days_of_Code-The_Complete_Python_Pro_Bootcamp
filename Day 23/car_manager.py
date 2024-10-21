@@ -4,4 +4,11 @@ MOVE_INCREMENT = 10
 
 
 class CarManager:
-    pass
+    def __init__(self):
+        pass
+
+    def move(self):
+        pass
+
+    def level_up(self):
+        pass

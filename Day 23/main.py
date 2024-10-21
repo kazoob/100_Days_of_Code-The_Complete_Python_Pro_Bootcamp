@@ -9,8 +9,8 @@ screen.setup(width=600, height=600)
 screen.tracer(0)
 
 player = Player()
-
 score = Scoreboard()
+cars = CarManager()
 
 screen.listen()
 screen.onkeypress(key="w", fun=player.move_up)
@@ -20,10 +20,10 @@ game_is_on = True
 while game_is_on:
     if player.is_finish_line():
         player.reset_pos()
-        score.increase_level()
-        # TODO car level up
+        score.level_up()
+        cars.level_up()
 
-    # TODO cars
+    cars.move()
 
     time.sleep(0.1)
     screen.update()
