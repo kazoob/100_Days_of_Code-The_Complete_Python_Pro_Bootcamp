@@ -11,12 +11,15 @@ class CarManager:
         self.move_distance = STARTING_MOVE_DISTANCE
         self.cars = []
 
+        self.new_car()
+
     def move(self):
         for car in self.cars:
             if car.move_forward(self.move_distance) <= -340:
                 self.cars.remove(car)
                 car.remove()
 
+        # TODO car spawning logic
         rand = random.randint(1, 5)
         if rand == 1:
             self.new_car()
@@ -28,7 +31,11 @@ class CarManager:
         self.cars.append(Car())
 
     def collision(self, player):
-        pass
+        for car in self.cars:
+            if car.collision(player):
+                return True
+
+        return False
 
 
 class Car:
@@ -59,3 +66,9 @@ class Car:
     def remove(self):
         self.front.hideturtle()
         self.back.hideturtle()
+
+    def collision(self, player):
+        if self.front.distance(player) < 20 or self.back.distance(player) < 20:
+            return True
+
+        return False
