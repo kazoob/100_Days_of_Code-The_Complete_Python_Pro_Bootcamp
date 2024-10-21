@@ -17,13 +17,18 @@ class CarManager:
                 self.cars.remove(car)
                 car.remove()
 
-        self.new_car()
+        rand = random.randint(1, 5)
+        if rand == 1:
+            self.new_car()
 
     def level_up(self):
         self.move_distance += MOVE_INCREMENT
 
     def new_car(self):
         self.cars.append(Car())
+
+    def collision(self, player):
+        pass
 
 
 class Car:

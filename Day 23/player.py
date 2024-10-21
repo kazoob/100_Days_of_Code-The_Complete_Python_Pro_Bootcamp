@@ -17,8 +17,11 @@ class Player(Turtle):
 
         self.reset_pos()
 
+        self.game_is_over = False
+
     def move_up(self):
-        self.forward(MOVE_DISTANCE)
+        if not self.game_is_over:
+            self.forward(MOVE_DISTANCE)
 
     def is_finish_line(self):
         if self.ycor() >= FINISH_LINE_Y:
@@ -28,3 +31,6 @@ class Player(Turtle):
 
     def reset_pos(self):
         self.goto(STARTING_POSITION)
+
+    def game_over(self):
+        self.game_is_over = True

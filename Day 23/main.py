@@ -2,7 +2,7 @@ import time
 from turtle import Screen
 from player import Player
 from car_manager import CarManager
-from scoreboard import Scoreboard
+from scoreboard import Scoreboard, GameOver
 
 screen = Screen()
 screen.setup(width=600, height=600)
@@ -25,7 +25,13 @@ while game_is_on:
 
     cars.move()
 
+    if cars.collision(player):
+        game_is_on = False
+
     time.sleep(0.1)
     screen.update()
+
+player.game_over()
+game_over = GameOver()
 
 screen.exitonclick()
