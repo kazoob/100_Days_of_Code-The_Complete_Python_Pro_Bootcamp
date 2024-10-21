@@ -16,6 +16,12 @@ screen.onkeypress(key="Up", fun=player.move_up)
 
 game_is_on = True
 while game_is_on:
+    if player.is_finish_line():
+        player.reset_pos()
+        # TODO car level up
+
+    # TODO cars
+
     time.sleep(0.1)
     screen.update()
 
