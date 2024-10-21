@@ -13,8 +13,9 @@ class CarManager:
 
     def move(self):
         for car in self.cars:
-            if car.move_forward(self.move_distance) >= 300:
+            if car.move_forward(self.move_distance) <= -340:
                 self.cars.remove(car)
+                car.remove()
 
         self.new_car()
 
@@ -49,3 +50,7 @@ class Car:
         self.back.forward(distance)
 
         return self.front.xcor()
+
+    def remove(self):
+        self.front.hideturtle()
+        self.back.hideturtle()
