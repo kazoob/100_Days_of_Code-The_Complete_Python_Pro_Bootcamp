@@ -7,6 +7,7 @@ from scoreboard import Scoreboard, GameOver
 # Set up screen.
 screen = Screen()
 screen.setup(width=600, height=600)
+screen.title("Frogger")
 screen.tracer(0)
 
 # Set up game components.
