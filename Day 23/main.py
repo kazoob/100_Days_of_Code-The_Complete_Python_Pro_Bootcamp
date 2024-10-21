@@ -4,9 +4,13 @@ from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard, GameOver
 
+SCREEN_WIDTH = 600
+SCREEN_HEIGHT = 600
+SCREEN_SLEEP_DELAY = 0.1
+
 # Set up screen.
 screen = Screen()
-screen.setup(width=600, height=600)
+screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
 screen.title("Frogger")
 screen.tracer(0)
 
@@ -39,7 +43,7 @@ while game_is_on:
         game_is_on = False
 
     # Game loop delay.
-    time.sleep(0.1)
+    time.sleep(SCREEN_SLEEP_DELAY)
 
     # Update screen elements.
     screen.update()
