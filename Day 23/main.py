@@ -15,6 +15,8 @@ cars = CarManager()
 screen.listen()
 screen.onkeypress(key="w", fun=player.move_up)
 screen.onkeypress(key="Up", fun=player.move_up)
+screen.onkeypress(key="s", fun=player.move_down)
+screen.onkeypress(key="Down", fun=player.move_down)
 
 game_is_on = True
 while game_is_on:

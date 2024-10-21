@@ -23,6 +23,10 @@ class Player(Turtle):
         if not self.game_is_over:
             self.forward(MOVE_DISTANCE)
 
+    def move_down(self):
+        if not self.game_is_over:
+            self.back(MOVE_DISTANCE)
+
     def is_finish_line(self):
         if self.ycor() >= FINISH_LINE_Y:
             return True
