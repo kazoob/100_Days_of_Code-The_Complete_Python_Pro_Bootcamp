@@ -1,4 +1,26 @@
-#TODO: Create a letter using starting_letter.txt 
+NAME_PLACEHOLDER = "[name]"
+STARTING_LETTER_PATH = "./Input/Letters/starting_letter.txt"
+INVITED_NAMES_PATH = "./Input/Names/invited_names.txt"
+READY_TO_SEND_PATH = "./Output/ReadyToSend/"
+
+with open(STARTING_LETTER_PATH) as letter_file:
+    starting_letter = letter_file.readlines()
+
+with open(INVITED_NAMES_PATH) as names_file:
+    names = names_file.readlines()
+
+for name in names:
+    new_letter = ""
+    name = name.strip()
+
+    for line in starting_letter:
+        new_letter += line.replace(NAME_PLACEHOLDER, name)
+
+    filename = f"{READY_TO_SEND_PATH}{name}.txt"
+    with open(filename, mode="w") as file:
+        file.write(new_letter)
+
+
 #for each name in invited_names.txt
 #Replace the [name] placeholder with the actual name.
 #Save the letters in the folder "ReadyToSend".
