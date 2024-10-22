@@ -3,12 +3,13 @@ from turtle import Screen
 from player import Player
 from car_manager import CarManager
 from scoreboard import Scoreboard, GameOver
+import random
 
 SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 SCREEN_SLEEP_DELAY = 0.1
 
-CAR_SPAWN_FREQUENCY = 6
+CAR_SPAWN_RANDOM = 6
 
 # Set up screen.
 screen = Screen()
@@ -44,7 +45,8 @@ while game_is_on:
     move_count += 1
 
     # Spawn a new car every CAR_SPAWN_FREQUENCY'th loop.
-    if move_count >= CAR_SPAWN_FREQUENCY:
+    rand = random.randint(1, CAR_SPAWN_RANDOM)
+    if rand == 1:
         cars.new_car()
         move_count = 0
 
