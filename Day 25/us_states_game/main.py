@@ -9,6 +9,15 @@ SCREEN_HEIGHT_DEFAULT = 600
 STATES_CSV = "50_states.csv"
 STATES_IMAGE = "blank_states_img.gif"
 
+TURTLE_FONT = ('Courier', 12, 'normal')
+TURTLE_ALIGN = "center"
+
+
+def draw_state(state, x_pos, y_pos):
+    turtle.teleport(x=x_pos, y=y_pos)
+    turtle.write(state, align=TURTLE_ALIGN, font=TURTLE_FONT)
+
+
 # Get the image size.
 try:
     with Image.open(STATES_IMAGE) as img:
@@ -41,6 +50,34 @@ except Exception as e:
 turtle = Turtle()
 turtle.hideturtle()
 turtle.penup()
+
+# Start the game.
+correct_states = 0
+num_states = len(states)
+
+# Continue prompting user until they hit Cancel.
+guess = ""
+guesses = []
+while guess is not None:
+    # TODO Don't display "another" if first guess
+    guess = screen.textinput(title=f"{correct_states}/{num_states} States Correct",
+                             prompt="What is another state's name?")
+
+    # Only process if not a repeated guess.
+    if guess is not None and guess not in guesses:
+        # Get the result from the CSV file.
+        guess = guess.title()
+        guess_result = states[states.state == guess]
+
+        # If the guess is correct, draw the state on the map and increase score.
+        if len(guess_result) >= 1:
+            state = guess_result.state.iloc[0]
+            x_pos = int(guess_result.x.iloc[0])
+            y_pos = int(guess_result.y.iloc[0])
+            draw_state(state, x_pos, y_pos)
+            correct_states += 1
+
+        guesses.append(guess)
 
 # Keep screen open until mouse click.
 screen.exitonclick()
