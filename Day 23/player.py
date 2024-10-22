@@ -20,18 +20,13 @@ class Player(Turtle):
         # Position turtle.
         self.reset_pos()
 
-        # Track game over status.
-        self.game_is_over = False
-
     def move_up(self):
-        """Move player up. If game over, do nothing."""
-        if not self.game_is_over:
-            self.forward(MOVE_DISTANCE)
+        """Move player up."""
+        self.forward(MOVE_DISTANCE)
 
     def move_down(self):
-        """Move player down. If game over, do nothing."""
-        if not self.game_is_over:
-            self.back(MOVE_DISTANCE)
+        """Move player down."""
+        self.back(MOVE_DISTANCE)
 
     def is_finish_line(self):
         """Return True if player cross the finish line, otherwise False."""
@@ -43,7 +38,3 @@ class Player(Turtle):
     def reset_pos(self):
         """Position player at the bottom of the screen."""
         self.goto(STARTING_POSITION)
-
-    def game_over(self):
-        """Game over, disable player movement."""
-        self.game_is_over = True

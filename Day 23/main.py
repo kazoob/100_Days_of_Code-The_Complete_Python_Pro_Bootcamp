@@ -61,7 +61,6 @@ while game_is_on:
     screen.update()
 
 # Game loop end, game over.
-player.game_over()
 game_over = GameOver()
 
 # Keep screen up until mouse click.

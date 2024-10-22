@@ -45,6 +45,6 @@ class GameOver(Turtle):
         self.penup()
         self.speed("fastest")
 
-        self.teleport(x=0, y=-150)
+        self.teleport(x=0, y=0)
 
         self.write("Game over", align="center", font=FONT)
