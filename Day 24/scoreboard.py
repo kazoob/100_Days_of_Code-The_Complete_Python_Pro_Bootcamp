@@ -3,6 +3,8 @@ from turtle import Turtle
 ALIGN = "center"
 FONT = ('Courier', 18, 'normal')
 
+HIGH_SCORE_FILE_NAME = "data.txt"
+
 
 class Scoreboard(Turtle):
     def __init__(self, screen_height):
@@ -11,7 +13,13 @@ class Scoreboard(Turtle):
 
         # Set up variables.
         self.score = 0
-        self.highscore = 0
+
+        # Read in previous high score (if exists).
+        try:
+            with open(HIGH_SCORE_FILE_NAME, mode="r") as hs_file:
+                self.highscore = int(hs_file.read())
+        except FileNotFoundError:
+            self.highscore = 0
 
         # Set up scoreboard.
         self.hideturtle()
@@ -40,6 +48,10 @@ class Scoreboard(Turtle):
         """Save the new high score if applicable and reset the score."""
         if self.score > self.highscore:
             self.highscore = self.score
+
+            # Save the high score to disk.
+            with open(HIGH_SCORE_FILE_NAME, mode="w") as hs_file:
+                hs_file.write(str(self.highscore))
 
         self.score = 0
         self.update_score()
