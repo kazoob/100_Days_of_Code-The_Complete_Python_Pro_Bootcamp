@@ -63,11 +63,11 @@ while not game_over:
 
     # Check for game over conditions. Either wall collision or snake body collision.
     if snake.is_game_over():
-        # Break while loop.
-        game_over = True
+        # Reset the game.
+        snake.reset_game()
 
-        # Display game over message.
-        scoreboard.game_over()
+        # Reset the scoreboard.
+        scoreboard.reset_score()
 
     # Update screen.
     scr.update()

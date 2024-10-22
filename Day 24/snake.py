@@ -10,20 +10,16 @@ RIGHT = 0
 
 
 class Snake:
-    turtles = []
-    head = None
-    moving = False
-    color = None
-
-    x_min = None
-    x_max = None
-    y_min = None
-    y_max = None
-
     def __init__(self, length, color, screen_width, screen_height):
         """Create a new snake, with a starting length and color. Provide screen_width and screen_height
         to be used for wall collision detection."""
+
+        # Set up variables.
+        self.turtles = []
+        self.head = None
+        self.moving = False
         self.color = color
+        self.initial_length = length
 
         # Set bounding for wall collision detection.
         self.x_min = int(((screen_width / 2) - 20) * -1)
@@ -31,7 +27,10 @@ class Snake:
         self.y_min = int(((screen_width / 2) - 20) * -1)
         self.y_max = int((screen_height / 2) - 20)
 
-        # Create the starting snake pieces.
+        # Initialize the game.
+        self.reset_game()
+
+    def create_snake(self, length):
         for i in range(0, length):
             x_pos = -20 * i
             y_pos = 0
@@ -118,3 +117,20 @@ class Snake:
                 if self.head.distance(t) < 10:
                     return True
             return False
+
+    def reset_game(self):
+        """Reset the game."""
+
+        # Stop moving the snake.
+        self.moving = False
+
+        # Clear the turtles.
+        for t in self.turtles:
+            t.hideturtle()
+        self.turtles.clear()
+
+        # Clear the head.
+        self.head = None
+
+        # Create a new snake.
+        self.create_snake(self.initial_length)
