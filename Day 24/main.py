@@ -13,8 +13,8 @@ SCREEN_BGCOLOR = "black"
 # Set snake options.
 SNAKE_INITIAL_LENGTH = 3
 SNAKE_COLOR = "white"
-SNAKE_DELAY_ESCALATION = 0.9
-SNAKE_DELAY_INITIAL = 0.1
+SNAKE_SPEED_INITIAL = 0.1
+SNAKE_SPEED_INCREASE = 0.9
 
 # Initialize screen.
 scr = Screen()
@@ -48,7 +48,7 @@ scr.tracer(0)
 
 # Run game until game over.
 game_over = False
-delay = SNAKE_DELAY_INITIAL
+delay = SNAKE_SPEED_INITIAL
 while not game_over:
     # Move snake forward one iteration.
     snake.move_forward()
@@ -65,7 +65,7 @@ while not game_over:
         scoreboard.increase_score()
 
         # Increase snake speed.
-        delay *= SNAKE_DELAY_ESCALATION
+        delay *= SNAKE_SPEED_INCREASE
 
     # Check for game over conditions. Either wall collision or snake body collision.
     if snake.is_game_over():
@@ -76,7 +76,7 @@ while not game_over:
         scoreboard.reset_score()
 
         # Reset the snake speed.
-        delay = SNAKE_DELAY_INITIAL
+        delay = SNAKE_SPEED_INITIAL
 
     # Update screen.
     scr.update()
