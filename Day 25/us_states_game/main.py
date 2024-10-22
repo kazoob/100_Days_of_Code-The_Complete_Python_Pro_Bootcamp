@@ -10,6 +10,7 @@ STATES_CSV = "50_states.csv"
 STATES_IMAGE = "blank_states_img.gif"
 
 TURTLE_FONT = ('Courier', 12, 'normal')
+TURTLE_FONT_GAME_OVER = ('Courier', 24, 'normal')
 TURTLE_ALIGN = "center"
 
 
@@ -57,7 +58,7 @@ num_states = len(states)
 
 # Continue prompting user until they hit Cancel.
 guess = ""
-guesses = []
+guesses = [] # Previous guess list
 while guess is not None:
     # TODO Don't display "another" if first guess
     guess = screen.textinput(title=f"{correct_states}/{num_states} States Correct",
@@ -77,7 +78,18 @@ while guess is not None:
             draw_state(state, x_pos, y_pos)
             correct_states += 1
 
+        # Append guess to previous guess list.
         guesses.append(guess)
+
+        # Check if all states have been found.
+        if correct_states >= num_states:
+            # Display congratulations message.
+            turtle.teleport(x=0, y=screen_height / 2 - 60)
+            turtle.write(f"Congratulations!!\nYou named all {num_states} states.",
+                         align=TURTLE_ALIGN, font=TURTLE_FONT_GAME_OVER)
+
+            # End game loop.
+            guess = None
 
 # Keep screen open until mouse click.
 screen.exitonclick()
