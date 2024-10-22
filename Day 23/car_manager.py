@@ -57,6 +57,7 @@ class Car:
         y_pos = random.randint(-250, 260)
 
         # Create front and back sections.
+        # TODO Replace front/back sections with one stretched car (use turtle.shapesize())
         self.front = self.new_section(color, 300, y_pos)
         self.back = self.new_section(color, 320, y_pos)
 
