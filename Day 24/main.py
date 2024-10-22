@@ -13,6 +13,8 @@ SCREEN_BGCOLOR = "black"
 # Set snake options.
 SNAKE_INITIAL_LENGTH = 3
 SNAKE_COLOR = "white"
+SNAKE_DELAY_ESCALATION = 0.9
+SNAKE_DELAY_INITIAL = 0.1
 
 # Initialize screen.
 scr = Screen()
@@ -46,6 +48,7 @@ scr.tracer(0)
 
 # Run game until game over.
 game_over = False
+delay = SNAKE_DELAY_INITIAL
 while not game_over:
     # Move snake forward one iteration.
     snake.move_forward()
@@ -61,6 +64,9 @@ while not game_over:
         # Increase score.
         scoreboard.increase_score()
 
+        # Increase snake speed.
+        delay *= SNAKE_DELAY_ESCALATION
+
     # Check for game over conditions. Either wall collision or snake body collision.
     if snake.is_game_over():
         # Reset the game.
@@ -69,12 +75,14 @@ while not game_over:
         # Reset the scoreboard.
         scoreboard.reset_score()
 
+        # Reset the snake speed.
+        delay = SNAKE_DELAY_INITIAL
+
     # Update screen.
     scr.update()
 
     # Game delay.
-    # TODO speed up game on food collect
-    time.sleep(0.1)
+    time.sleep(delay)
 
 # Leave screen visible until mouse click.
 scr.exitonclick()
