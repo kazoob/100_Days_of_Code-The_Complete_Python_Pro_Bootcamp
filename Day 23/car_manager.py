@@ -17,7 +17,7 @@ class CarManager:
         # Create new car.
         self.new_car()
 
-    def move(self):
+    def move(self, new_car):
         """Move all active cars."""
         for car in self.cars:
             # If car is off the screen, clear and remove from list.
@@ -25,10 +25,8 @@ class CarManager:
                 self.cars.remove(car)
                 car.remove()
 
-        # Spawn new cars at random intervals.
-        # TODO car spawning logic
-        rand = random.randint(1, 5)
-        if rand == 1:
+        # Spawn new car if requested.
+        if new_car:
             self.new_car()
 
     def level_up(self):

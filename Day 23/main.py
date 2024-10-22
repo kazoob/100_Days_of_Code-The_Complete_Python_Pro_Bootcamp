@@ -8,6 +8,8 @@ SCREEN_WIDTH = 600
 SCREEN_HEIGHT = 600
 SCREEN_SLEEP_DELAY = 0.1
 
+CAR_SPAWN_FREQUENCY = 6
+
 # Set up screen.
 screen = Screen()
 screen.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT)
@@ -28,6 +30,8 @@ screen.onkeypress(key="Down", fun=player.move_down)
 
 # Game loop.
 game_is_on = True
+move_count = 0
+
 while game_is_on:
     # If player crossed finish line, level up.
     if player.is_finish_line():
@@ -35,8 +39,14 @@ while game_is_on:
         score.level_up()
         cars.level_up()
 
-    # Move cars.
-    cars.move()
+    # Move cars and spawn a new car every CAR_SPAWN_FREQUENCY'th loop.
+    if move_count >= CAR_SPAWN_FREQUENCY:
+        cars.move(True)
+        move_count = 0
+    # Move cars and don't spawn a new car.
+    else:
+        cars.move(False)
+        move_count += 1
 
     # End game if player car collision.
     if cars.collision(player):
