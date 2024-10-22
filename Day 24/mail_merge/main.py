@@ -13,8 +13,7 @@ for name in names:
     name = name.strip()
     new_letter = starting_letter.replace(NAME_PLACEHOLDER, name)
 
-    filename = f"{READY_TO_SEND_PATH}{name}.txt"
-    with open(filename, mode="w") as file:
+    with open(f"{READY_TO_SEND_PATH}{name}.txt", mode="w") as file:
         file.write(new_letter)
 
 # for each name in invited_names.txt
