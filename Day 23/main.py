@@ -39,14 +39,14 @@ while game_is_on:
         score.level_up()
         cars.level_up()
 
-    # Move cars and spawn a new car every CAR_SPAWN_FREQUENCY'th loop.
+    # Move cars.
+    cars.move_cars()
+    move_count += 1
+
+    # Spawn a new car every CAR_SPAWN_FREQUENCY'th loop.
     if move_count >= CAR_SPAWN_FREQUENCY:
-        cars.move(True)
+        cars.new_car()
         move_count = 0
-    # Move cars and don't spawn a new car.
-    else:
-        cars.move(False)
-        move_count += 1
 
     # End game if player car collision.
     if cars.collision(player):

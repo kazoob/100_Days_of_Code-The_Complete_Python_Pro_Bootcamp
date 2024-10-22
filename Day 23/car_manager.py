@@ -17,17 +17,13 @@ class CarManager:
         # Create new car.
         self.new_car()
 
-    def move(self, new_car):
+    def move_cars(self):
         """Move all active cars."""
         for car in self.cars:
             # If car is off the screen, clear and remove from list.
             if car.move_forward(self.move_distance) <= -340:
                 self.cars.remove(car)
                 car.remove()
-
-        # Spawn new car if requested.
-        if new_car:
-            self.new_car()
 
     def level_up(self):
         """Level up. Increase car movement speed."""
