@@ -72,9 +72,9 @@ while guess is not None:
 
         # If the guess is correct, draw the state on the map and increase score.
         if len(guess_result) >= 1:
-            state = guess_result.state.iloc[0]
-            x_pos = int(guess_result.x.iloc[0])
-            y_pos = int(guess_result.y.iloc[0])
+            state = guess_result.state.item()
+            x_pos = int(guess_result.x.item())
+            y_pos = int(guess_result.y.item())
             draw_state(state, x_pos, y_pos)
             correct_states += 1
 
