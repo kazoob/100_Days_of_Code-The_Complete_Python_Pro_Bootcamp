@@ -9,6 +9,8 @@ SCREEN_HEIGHT_DEFAULT = 600
 STATES_CSV = "50_states.csv"
 STATES_IMAGE = "blank_states_img.gif"
 
+MISSING_STATES_CSV = "missing_states.csv"
+
 TURTLE_FONT = ('Courier', 12, 'normal')
 TURTLE_FONT_GAME_OVER = ('Courier', 24, 'normal')
 TURTLE_ALIGN = "center"
@@ -58,7 +60,7 @@ num_states = len(states)
 
 # Continue prompting user until they hit Cancel.
 guess = ""
-guesses = [] # Previous guess list
+guesses = []  # Previous guess list
 while guess is not None:
     # TODO Don't display "another" if first guess
     guess = screen.textinput(title=f"{correct_states}/{num_states} States Correct",
@@ -76,10 +78,10 @@ while guess is not None:
             x_pos = int(guess_result.x.item())
             y_pos = int(guess_result.y.item())
             draw_state(state, x_pos, y_pos)
-            correct_states += 1
 
-        # Append guess to previous guess list.
-        guesses.append(guess)
+            correct_states += 1
+            # Append guess to previous guess list.
+            guesses.append(guess)
 
         # Check if all states have been found.
         if correct_states >= num_states:
@@ -90,6 +92,19 @@ while guess is not None:
 
             # End game loop.
             guess = None
+
+# Compile a list of states not guessed.
+missing_states = {
+    "state": []
+}
+
+for state in states.state.to_list():
+    if state not in guesses:
+        missing_states["state"].append(state)
+
+# Export a CSV containing all states not guessed.
+report = pandas.DataFrame(missing_states)
+report.to_csv(MISSING_STATES_CSV)
 
 # Keep screen open until mouse click.
 screen.exitonclick()
