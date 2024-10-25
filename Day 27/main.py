@@ -1,7 +1,5 @@
 from tkinter import *
 
-WINDOW_WIDTH = 260
-WINDOW_HEIGHT = 130
 WINDOW_PADDING = 20
 
 DEFAULT_VALUE = 1
@@ -28,7 +26,6 @@ def calculate():
 # Create window
 window = Tk()
 window.title("Miles to Km Converter")
-window.minsize(width=WINDOW_WIDTH, height=WINDOW_HEIGHT)
 window.config(padx=WINDOW_PADDING, pady=WINDOW_PADDING)
 
 # Create input box
