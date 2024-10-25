@@ -1,8 +1,6 @@
 from tkinter import *
 
 # ---------------------------- CONSTANTS ------------------------------- #
-# WINDOW_WIDTH = 500
-# WINDOW_HEIGHT = 500
 WINDOW_PADDING_X = 100
 WINDOW_PADDING_Y = 50
 WINDOW_IMAGE = "tomato.png"
@@ -29,7 +27,6 @@ LONG_BREAK_MIN = 20
 # Create the window
 window = Tk()
 window.title("Pomodoro Timer")
-# window.minsize(width=WINDOW_WIDTH, height=WINDOW_HEIGHT)
 window.config(padx=WINDOW_PADDING_X, pady=WINDOW_PADDING_Y)
 window.config(bg=YELLOW)
 
