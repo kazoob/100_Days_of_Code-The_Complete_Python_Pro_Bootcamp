@@ -19,61 +19,92 @@ CHECK_SYMBOL = "✔"
 STATUS_IDLE = "----"
 STATUS_WORK = "Work"
 STATUS_BREAK = "Break"
+STATUS_LONG_BREAK = "Break"
 
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
-LONG_BREAK_MIN = 20
+# WORK_MIN = 25
+# SHORT_BREAK_MIN = 5
+# LONG_BREAK_MIN = 20
+WORK_MIN = 0.3
+SHORT_BREAK_MIN = 0.1
+LONG_BREAK_MIN = 0.2
 
 # ---------------------------- TIMER RESET ------------------------------- #
-timer_min = 0
-timer_sec = 0
+cycle = 0
+timer_seconds = 0
+
+# TODO Replace with window.after_cancel()
 timer_running = False
 
 
 def timer_reset():
-    global timer_min
-    global timer_sec
+    global cycle
     global timer_running
 
-    timer_min = WORK_MIN
-    timer_sec = 0
     timer_running = False
-    status_label.config(text=STATUS_IDLE)
-
+    timer_set()
     timer_update()
+
+    if cycle > 0:
+        cycle -= 1
+
+
+def timer_set():
+    global timer_seconds
+
+    if cycle == 0:
+        status_label.config(text=STATUS_IDLE, fg=GREEN)
+    elif cycle % 8 == 0:
+        timer_seconds = int(LONG_BREAK_MIN * 60)
+        status_label.config(text=STATUS_LONG_BREAK, fg=RED)
+    elif cycle % 2 == 0:
+        timer_seconds = int(SHORT_BREAK_MIN * 60)
+        status_label.config(text=STATUS_BREAK, fg=PINK)
+    else:
+        timer_seconds = int(WORK_MIN * 60)
+        status_label.config(text=STATUS_WORK, fg=GREEN)
 
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def timer_start():
+    global cycle
     global timer_running
 
-    timer_running = True
-    status_label.config(text=STATUS_WORK)
+    cycle += 1
 
-    window.after(1000, timer_countdown)
+    if not timer_running:
+        timer_set()
+        timer_running = True
+        timer_update()
+        window.after(1000, timer_countdown)
 
 
 def timer_update():
-    tomato_canvas.itemconfig(timer_text, text=f"{timer_min:02d}:{timer_sec:02d}")
+    if cycle == 0:
+        timer_string = "--:--"
+    else:
+        timer_string = f"{timer_seconds // 60:02d}:{timer_seconds % 60:02d}"
+
+    tomato_canvas.itemconfig(timer_text, text=timer_string)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def timer_countdown():
+    global cycle
+    global timer_seconds
+    global timer_running
+
     if timer_running:
-        global timer_min
-        global timer_sec
-
-        if timer_sec > 0:
-            timer_sec -= 1
-        elif timer_min > 0:
-            timer_min -= 1
-            timer_sec = 59
+        if timer_seconds > 0:
+            timer_seconds -= 1
+            timer_update()
+            window.after(1000, timer_countdown)
         else:
-            # TODO
-            pass
+            if cycle % 2 == 1:
+                new_checks = status_checks.cget("text") + CHECK_SYMBOL
+                status_checks.config(text=new_checks)
 
-        timer_update()
-        window.after(1000, timer_countdown)
+            timer_running = False
+            timer_start()
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -93,7 +124,7 @@ tomato_img_height = tomato_img.height()
 # Create the image and timer canvas
 tomato_canvas = Canvas(width=tomato_img_width + 2, height=tomato_img_height + 2, bg=YELLOW, highlightthickness=0)
 tomato_canvas.create_image(tomato_img_width / 2 + 1, tomato_img_height / 2 + 1, image=tomato_img)
-timer_text = tomato_canvas.create_text(tomato_img_width / 2, tomato_img_height / 2 + 18, text="", fill="white",
+timer_text = tomato_canvas.create_text(tomato_img_width / 2, tomato_img_height / 2 + 18, fill="white",
                                        font=(FONT_NAME, FONT_SIZE_TIMER, "bold"))
 tomato_canvas.grid(column=1, row=1)
 
@@ -101,7 +132,7 @@ tomato_canvas.grid(column=1, row=1)
 status_label = Label(text=STATUS_IDLE, font=(FONT_NAME, FONT_SIZE_STATUS), bg=YELLOW, fg=GREEN)
 status_label.grid(column=1, row=0)
 
-status_checks = Label(text="", font=(FONT_NAME, FONT_SIZE_CHECK), bg=YELLOW, fg=GREEN)
+status_checks = Label(font=(FONT_NAME, FONT_SIZE_CHECK), bg=YELLOW, fg=GREEN)
 status_checks.grid(column=1, row=3)
 
 # Create the buttons
