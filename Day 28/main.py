@@ -21,12 +21,12 @@ STATUS_WORK = "Work"
 STATUS_BREAK = "Break"
 STATUS_LONG_BREAK = "Break"
 
-# WORK_MIN = 25
-# SHORT_BREAK_MIN = 5
-# LONG_BREAK_MIN = 20
-WORK_MIN = 0.3
-SHORT_BREAK_MIN = 0.1
-LONG_BREAK_MIN = 0.2
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
+# WORK_MIN = 0.3
+# SHORT_BREAK_MIN = 0.1
+# LONG_BREAK_MIN = 0.2
 
 # ---------------------------- TIMER RESET ------------------------------- #
 cycle = 0  # Current work / break cycle
