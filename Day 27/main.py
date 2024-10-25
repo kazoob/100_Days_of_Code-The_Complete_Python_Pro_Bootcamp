@@ -4,6 +4,8 @@ WINDOW_WIDTH = 260
 WINDOW_HEIGHT = 130
 WINDOW_PADDING = 20
 
+DEFAULT_VALUE = 1
+
 
 def calculate():
     """Get the user input and convert to miles. Display result. If input is not a number, display 'error'."""
@@ -31,8 +33,8 @@ window.config(padx=WINDOW_PADDING, pady=WINDOW_PADDING)
 
 # Create input box
 user_input = Entry(width=10)
+user_input.insert(END, string=f"{DEFAULT_VALUE}")
 user_input.grid(column=1, row=0)
-user_input.focus()
 
 # Create labels
 label_miles = Label(text="Miles")
@@ -50,6 +52,9 @@ label_result.grid(column=1, row=1)
 # Create button
 calculate_button = Button(text="Calculate", command=calculate)
 calculate_button.grid(column=1, row=2)
+
+# Calculate the initial result
+calculate()
 
 # Keep window on screen
 window.mainloop()
