@@ -11,7 +11,7 @@ def calculate():
     """Get the user input and convert to miles. Display result. If input is not a number, display 'error'."""
     try:
         # Convert input to int and convert to km
-        result = round(int(user_input.get()) * 1.609344, 2)
+        result = round(float(user_input.get()) * 1.609344, 2)
     except ValueError:
         result = "error"
     except Exception as e:
