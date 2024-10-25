@@ -29,36 +29,53 @@ SHORT_BREAK_MIN = 0.1
 LONG_BREAK_MIN = 0.2
 
 # ---------------------------- TIMER RESET ------------------------------- #
-cycle = 0
-timer_seconds = 0
+cycle = 0  # Current work / break cycle
+# Odd = Work
+# Even = Break
+# Multiple of 8 = Long break
+timer_seconds = 0  # Timer seconds remaining
 
 # TODO Replace with window.after_cancel()
 timer_running = False
 
 
 def timer_reset():
+    """Stop the timer. Reset the current cycle."""
     global cycle
     global timer_running
 
+    # Stop timer
     timer_running = False
+
+    # Reset the current cycle
     timer_set()
     timer_update()
 
+    # Move cycle back so that timer_start() moves it forward again.
+    # TODO could do this better
     if cycle > 0:
         cycle -= 1
 
 
 def timer_set():
+    """Set the timer and the current cycle label."""
     global timer_seconds
 
+    # Timer is idle
     if cycle == 0:
         status_label.config(text=STATUS_IDLE, fg=GREEN)
+
+    # Long break cycle
     elif cycle % 8 == 0:
         timer_seconds = int(LONG_BREAK_MIN * 60)
         status_label.config(text=STATUS_LONG_BREAK, fg=RED)
+
+    # Short break cycle
     elif cycle % 2 == 0:
         timer_seconds = int(SHORT_BREAK_MIN * 60)
         status_label.config(text=STATUS_BREAK, fg=PINK)
+
+    # Work cycle
     else:
         timer_seconds = int(WORK_MIN * 60)
         status_label.config(text=STATUS_WORK, fg=GREEN)
@@ -66,44 +83,67 @@ def timer_set():
 
 # ---------------------------- TIMER MECHANISM ------------------------------- #
 def timer_start():
+    """Start the timer."""
     global cycle
     global timer_running
 
-    cycle += 1
-
+    # Only start the timer if it is not already running
     if not timer_running:
+        # Advance the current cycle.
+        # TODO could do this better
+        cycle += 1
+
+        # Set the timer
         timer_set()
+
+        # Start the timer
         timer_running = True
         timer_update()
+
+        # Schedule 1 second updates
         window.after(1000, timer_countdown)
 
 
 def timer_update():
+    """Update the timer countdown."""
+    # Timer is idle
     if cycle == 0:
         timer_string = "--:--"
+
+    # Timer is running
     else:
         timer_string = f"{timer_seconds // 60:02d}:{timer_seconds % 60:02d}"
 
+    # Update the label
     tomato_canvas.itemconfig(timer_text, text=timer_string)
 
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
 def timer_countdown():
+    """Countdown the timer 1 second. If a work cycle has been completed, add a check mark."""
     global cycle
     global timer_seconds
     global timer_running
 
+    # Only proceed if timer is supposed to be running.
     if timer_running:
+        # Timer still has time remaining, count down.
         if timer_seconds > 0:
             timer_seconds -= 1
             timer_update()
             window.after(1000, timer_countdown)
+
+        # TImer has completed.
         else:
+            # Update check marks if work cycle completed.
             if cycle % 2 == 1:
                 new_checks = status_checks.cget("text") + CHECK_SYMBOL
                 status_checks.config(text=new_checks)
 
+            # Stop the timer
             timer_running = False
+
+            # Start the timer with the next cycle.
             timer_start()
 
 
