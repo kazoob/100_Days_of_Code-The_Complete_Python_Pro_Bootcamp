@@ -31,6 +31,10 @@ def save_password():
         # Save username to text file, to be re-used when application is opened
         with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
             username_file_rw.write(username)
+
+        # Clear the fields
+        website_input.delete(0, END)
+        password_input.delete(0, END)
     else:
         # TODO input validation error
         pass
