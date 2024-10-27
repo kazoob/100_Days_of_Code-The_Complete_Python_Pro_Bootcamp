@@ -14,7 +14,6 @@ USERNAME_FILE_NAME = "username.txt"
 PASSWORD_FILE_NAME = "passwords.json"
 
 
-# ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     """Generate a random password. Copy to the clipboard. Code from Day 5."""
     # Library of letters, numbers and symbols.
@@ -46,7 +45,6 @@ def generate_password():
     pyperclip.copy(password)
 
 
-# ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
     """Save the password to the database. Ensure that all fields are valid. Ask the user for confirmation."""
     # Get the input data
@@ -80,6 +78,32 @@ def save_password():
         password_input.delete(0, END)
     else:
         messagebox.showerror(title="Invalid Data", message="Some of the fields are empty.")
+
+
+def search_password():
+    # Get the input data
+    website = website_input.get().strip()
+
+    # Verify that the website is not empty
+    if website:
+        # Try to get the entry in the password database
+        try:
+            # Get the username and password
+            username = passwords[website]["username"]
+            password = passwords[website]["password"]
+        # The password does not exist, display error message and clear input box
+        except KeyError:
+            messagebox.showinfo(title="Website Not Found", message=f"Website '{website}' was not found.")
+            website_input.delete(0, END)
+        # The password was found in the password database
+        else:
+            # Populate the username field
+            username_input.delete(0, END)
+            username_input.insert(END, username)
+
+            # Populate the password field
+            password_input.delete(0, END)
+            password_input.insert(END, password)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -117,22 +141,25 @@ password_label = Label(text="Password:")
 password_label.grid(column=0, row=3)
 
 # Create the inputs
-website_input = Entry(width=40)
-website_input.grid(column=1, row=1, columnspan=2)
+website_input = Entry(width=23)
+website_input.grid(column=1, row=1)
 website_input.focus()
 
 username_input = Entry(width=40)
 username_input.grid(column=1, row=2, columnspan=2)
 
-password_input = Entry(width=22)
+password_input = Entry(width=23)
 password_input.grid(column=1, row=3)
 
 # Create the buttons
-generate_pw_button = Button(text="Generate Password", command=generate_password)
+generate_pw_button = Button(text="Generate Password", width=13, command=generate_password)
 generate_pw_button.grid(column=2, row=3)
 
 add_pw_button = Button(text="Add", width=37, command=save_password)
 add_pw_button.grid(column=1, row=4, columnspan=2)
+
+search_pw_button = Button(text="Search", width=13, command=search_password)
+search_pw_button.grid(column=2, row=1)
 
 # Restore previous username (if found)
 try:
