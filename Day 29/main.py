@@ -6,6 +6,8 @@ WINDOW_PADDING_Y = 50
 LOGO_IMAGE = "logo.png"
 LOGO_PADDING = 1
 
+USERNAME_FILE_NAME = "username.txt"
+
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
@@ -14,7 +16,8 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
-    pass
+    with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
+        username_file_rw.write(username_input.get())
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -68,6 +71,14 @@ generate_pw_button.grid(column=2, row=3)
 
 add_pw_button = Button(text="Add", width=37, command=save_password)
 add_pw_button.grid(column=1, row=4, columnspan=2)
+
+# Restore previous username (if found)
+try:
+    with open(USERNAME_FILE_NAME, mode="r") as username_file_r:
+        username = username_file_r.read().strip()
+        username_input.insert(END, string=username)
+except FileNotFoundError as e:
+    print(e)
 
 # Keep window open
 window.mainloop()
