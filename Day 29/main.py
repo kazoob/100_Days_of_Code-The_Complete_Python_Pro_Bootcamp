@@ -14,11 +14,14 @@ PASSWORD_SEPARATOR = "|"
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
+    """Generate a random password. Copy to the clipboard."""
     pass
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
+    """Save the password to the database. Ensure that all fields are valid."""
+    # Get the input data
     website = website_input.get().strip()
     username = username_input.get().strip()
     password = password_input.get().strip()
