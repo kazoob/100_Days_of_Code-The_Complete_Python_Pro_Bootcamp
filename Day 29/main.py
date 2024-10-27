@@ -16,9 +16,13 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
-    # Save username to text file, to be re-used when application is opened
-    with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
-        username_file_rw.write(username_input.get())
+    # Make sure all input fields have data
+    if website_input.get() != "" and username_input.get() != "" and password_input.get() != "":
+        # Save username to text file, to be re-used when application is opened
+        with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
+            username_file_rw.write(username_input.get())
+    else:
+        pass
 
 
 # ---------------------------- UI SETUP ------------------------------- #
