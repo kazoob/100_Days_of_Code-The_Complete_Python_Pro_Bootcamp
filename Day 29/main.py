@@ -22,6 +22,7 @@ def save_password():
         with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
             username_file_rw.write(username_input.get())
     else:
+        # TODO input validation error
         pass
 
 
