@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 WINDOW_PADDING_X = 50
 WINDOW_PADDING_Y = 50
@@ -10,8 +11,7 @@ LOGO_IMAGE = "logo.png"
 LOGO_PADDING = 1
 
 USERNAME_FILE_NAME = "username.txt"
-PASSWORD_FILE_NAME = "passwords.txt"
-PASSWORD_SEPARATOR = "|"
+PASSWORD_FILE_NAME = "passwords.json"
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -56,26 +56,28 @@ def save_password():
 
     # Make sure all input fields have data
     if website and username and password:
-        # Display confirmation
-        confirm = messagebox.askyesno(title="Save Password", message="Do you want to save the following password:\n"
-                                                                     "\n"
-                                                                     f"Website: {website}\n"
-                                                                     f"Username: {username}\n"
-                                                                     f"Password: {password}\n"
-                                      )
+        # Create the password dictionary
+        data = {
+            website: {
+                "username": username,
+                "password": password,
+            }
+        }
 
-        if confirm:
-            # Append the password to the text file
-            with open(PASSWORD_FILE_NAME, mode="a") as password_file_a:
-                password_file_a.write(f"{website} {PASSWORD_SEPARATOR} {username} {PASSWORD_SEPARATOR} {password}\n")
+        # Add the password to the password database
+        passwords.update(data)
 
-            # Save username to text file, to be re-used when application is opened
-            with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
-                username_file_rw.write(username)
+        # Write the password database to disk
+        with open(PASSWORD_FILE_NAME, mode="w") as password_file_w:
+            json.dump(passwords, password_file_w, indent=4)
 
-            # Clear the fields
-            website_input.delete(0, END)
-            password_input.delete(0, END)
+        # Save username to text file, to be re-used when application is opened
+        with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
+            username_file_rw.write(username)
+
+        # Clear the fields
+        website_input.delete(0, END)
+        password_input.delete(0, END)
     else:
         messagebox.showerror(title="Invalid Data", message="Some of the fields are empty.")
 
@@ -138,6 +140,15 @@ try:
         username_prev = username_file_r.read().strip()
         username_input.insert(END, string=username_prev)
 except FileNotFoundError as e:
+    print(e)
+
+# Read existing password database (if found)
+try:
+    with open(PASSWORD_FILE_NAME, mode="r") as password_file_r:
+        passwords = json.load(password_file_r)
+except FileNotFoundError as e:
+    # Create empty password database
+    passwords = {}
     print(e)
 
 # Keep window open
