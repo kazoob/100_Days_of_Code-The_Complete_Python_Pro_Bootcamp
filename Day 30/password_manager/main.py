@@ -84,7 +84,7 @@ def search_password():
     # Get the input data
     website = website_input.get().strip()
 
-    # Verify that the website is not empty
+    # Verify that the website field is not empty
     if website:
         # Check if the website exists in the password database
         if website in passwords:
