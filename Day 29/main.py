@@ -7,6 +7,8 @@ LOGO_IMAGE = "logo.png"
 LOGO_PADDING = 1
 
 USERNAME_FILE_NAME = "username.txt"
+PASSWORD_FILE_NAME = "passwords.txt"
+PASSWORD_SEPARATOR = "|"
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
@@ -16,11 +18,19 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
+    website = website_input.get()
+    username = username_input.get()
+    password = password_input.get()
+
     # Make sure all input fields have data
-    if website_input.get() != "" and username_input.get() != "" and password_input.get() != "":
+    if website != "" and username != "" and password != "":
+        # Append the password to the text file
+        with open(PASSWORD_FILE_NAME, mode="a") as password_file_a:
+            password_file_a.write(f"{website} {PASSWORD_SEPARATOR} {username} {PASSWORD_SEPARATOR} {password}\n")
+
         # Save username to text file, to be re-used when application is opened
         with open(USERNAME_FILE_NAME, mode="w") as username_file_rw:
-            username_file_rw.write(username_input.get())
+            username_file_rw.write(username)
     else:
         # TODO input validation error
         pass
@@ -81,8 +91,8 @@ add_pw_button.grid(column=1, row=4, columnspan=2)
 # Restore previous username (if found)
 try:
     with open(USERNAME_FILE_NAME, mode="r") as username_file_r:
-        username = username_file_r.read().strip()
-        username_input.insert(END, string=username)
+        username_prev = username_file_r.read().strip()
+        username_input.insert(END, string=username_prev)
 except FileNotFoundError as e:
     print(e)
 
