@@ -20,7 +20,7 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
-    """Save the password to the database. Ensure that all fields are valid."""
+    """Save the password to the database. Ensure that all fields are valid. Ask the user for confirmation."""
     # Get the input data
     website = website_input.get().strip()
     username = username_input.get().strip()
