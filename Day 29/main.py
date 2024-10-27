@@ -1,17 +1,21 @@
 from tkinter import *
 
-WINDOW_PADDING_X = 20
-WINDOW_PADDING_Y = 20
+WINDOW_PADDING_X = 50
+WINDOW_PADDING_Y = 50
 
 LOGO_IMAGE = "logo.png"
 LOGO_PADDING = 1
 
+
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     pass
+
+
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save_password():
     pass
+
 
 # ---------------------------- UI SETUP ------------------------------- #
 # Create the window
