@@ -86,17 +86,12 @@ def search_password():
 
     # Verify that the website is not empty
     if website:
-        # Try to get the entry in the password database
-        try:
+        # Check if the website exists in the password database
+        if website in passwords:
             # Get the username and password
             username = passwords[website]["username"]
             password = passwords[website]["password"]
-        # The password does not exist, display error message and clear input box
-        except KeyError:
-            messagebox.showinfo(title="Website Not Found", message=f"Website '{website}' was not found.")
-            website_input.delete(0, END)
-        # The password was found in the password database
-        else:
+
             # Populate the username field
             username_input.delete(0, END)
             username_input.insert(END, username)
@@ -104,6 +99,13 @@ def search_password():
             # Populate the password field
             password_input.delete(0, END)
             password_input.insert(END, password)
+
+            # Copy the password to the clipboard
+            pyperclip.copy(password)
+        else:
+            # The password does not exist, display error message and clear input box
+            messagebox.showinfo(title="Website Not Found", message=f"Website '{website}' was not found.")
+            website_input.delete(0, END)
 
 
 # ---------------------------- UI SETUP ------------------------------- #
