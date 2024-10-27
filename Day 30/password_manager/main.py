@@ -87,8 +87,10 @@ def search_password():
     # Verify that the website is not empty
     if website:
         # Try to get the entry in the password database
+        # TODO change to if statement
         try:
             # Get the username and password
+            # TODO add if statements to check
             username = passwords[website]["username"]
             password = passwords[website]["password"]
         # The password does not exist, display error message and clear input box
