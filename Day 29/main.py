@@ -16,24 +16,28 @@ PASSWORD_SEPARATOR = "|"
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
     """Generate a random password. Copy to the clipboard. Code from Day 5."""
+    # Library of letters, numbers and symbols.
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
                'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
                'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
+    # Empty password list
     password_list = []
 
+    # Populate password list with random letters, symbols and numbers
     password_list.extend([random.choice(letters) for _ in range(random.randint(8, 10))])
     password_list.extend([random.choice(symbols) for _ in range(random.randint(2, 4))])
     password_list.extend([random.choice(numbers) for _ in range(random.randint(2, 4))])
 
+    # Shuffle the password list
     random.shuffle(password_list)
 
-    password = ""
-    for char in password_list:
-        password += char
+    # Convert the password list to a password string
+    password = "".join(password_list)
 
+    # Replace password input with generated password string
     password_input.delete(0, END)
     password_input.insert(END, password)
 
