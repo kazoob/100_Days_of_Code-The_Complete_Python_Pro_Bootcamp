@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 import random
+import pyperclip
 
 WINDOW_PADDING_X = 50
 WINDOW_PADDING_Y = 50
@@ -40,6 +41,9 @@ def generate_password():
     # Replace password input with generated password string
     password_input.delete(0, END)
     password_input.insert(END, password)
+
+    # Copy the password string to the clipboard
+    pyperclip.copy(password)
 
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
