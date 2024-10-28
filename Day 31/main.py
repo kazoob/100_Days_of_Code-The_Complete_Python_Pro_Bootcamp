@@ -20,6 +20,7 @@ FLASH_CARD_TIME = 3000
 
 
 def right():
+    """User successfully translated the word. Remove from word list and display a new flash card."""
     if is_flash_card_back():
         # Remove word from word list
         word_list.remove(current_word)
@@ -29,6 +30,7 @@ def right():
 
 
 def wrong():
+    """User unsuccessfully translated the word. Keep word in word list and display a new flash card."""
     if is_flash_card_back():
         # TODO add to incorrect word list?
 
@@ -37,6 +39,7 @@ def wrong():
 
 
 def new_word():
+    """Return a new word if there are words in the word list, otherwise return None."""
     # Check if there are words left in the word list
     if len(word_list) > 0:
         # Return new word
@@ -46,14 +49,17 @@ def new_word():
 
 
 def display_flash_card_front():
+    """Change the flash card to the front image."""
     flash_card.itemconfig(flash_card_image, image=flash_card_front_img)
 
 
 def display_flash_card_back():
+    """Change the flash card to the back (answer) image."""
     flash_card.itemconfig(flash_card_image, image=flash_card_back_img)
 
 
 def new_flash_card():
+    """Display a new flash card."""
     global current_word
 
     current_word = new_word()
@@ -66,6 +72,7 @@ def new_flash_card():
 
 
 def update_flash_card(word, lang):
+    """Update the flash card. Set the correct front or back size. Update the language and word texts."""
     # Learning language
     if lang == lang_a:
         # Display flash card front
@@ -86,6 +93,7 @@ def update_flash_card(word, lang):
 
 
 def is_flash_card_back():
+    """Return True if the flash bard back (answer) image is being displayed, otherwise return False."""
     # Get current card PhotoImage string
     current_card = flash_card.itemcget(flash_card_image, "image")
 
