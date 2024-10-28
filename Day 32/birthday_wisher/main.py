@@ -17,7 +17,18 @@ LETTER_FILE_NAMES = [
 # SMTP configuration file name
 SMTP_PII_FILE_NAME = "../../smtp_pii.json"
 
-# Get the current month and day
+
+def ordinal(n: int):
+    """Code from https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement"""
+    if 11 <= (n % 100) <= 13:
+        suffix = 'th'
+    else:
+        suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
+    return str(n) + suffix
+
+
+# Get the current year, month and day
+year = datetime.now().year
 month = datetime.now().month
 day = datetime.now().day
 
@@ -32,6 +43,7 @@ for index, row in birthdays.iterrows():
     # Get the name and e-mail
     name = row["name"]
     email = row["email"]
+    birthday_year = row["year"]
 
     # Choose and open a random letter, replacing [NAME] with the actual name
     with open(random.choice(LETTER_FILE_NAMES)) as letter_file:
@@ -49,7 +61,7 @@ for index, row in birthdays.iterrows():
     smtp_port = smtp_pii['port']
 
     # Prepare the e-mail message
-    message = f"From: {smtp_from}\nTo: {email}\nSubject: Happy Birthday!\n\n{letter}"
+    message = f"From: {smtp_from}\nTo: {email}\nSubject: Happy {ordinal(year - birthday_year)} Birthday!\n\n{letter}"
 
     # Send the e-mail
     with smtplib.SMTP(host=smtp_host, port=smtp_port) as smtp:
