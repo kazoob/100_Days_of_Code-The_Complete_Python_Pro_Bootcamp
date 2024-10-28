@@ -29,7 +29,7 @@ if day_of_week == WEEKDAY_TRIGGER:
 
     quote = random.choice(quotes)
 
-    message = f"From: {smtp_username}\nTo: {to_address}\nSubject: Motivational Quote\n\n{quote}"
+    message = f"From: {smtp_from}\nTo: {to_address}\nSubject: Motivational Quote\n\n{quote}"
 
     with smtplib.SMTP(host=smtp_host, port=smtp_port) as smtp:
         smtp.starttls()
