@@ -2,7 +2,8 @@ from tkinter import *
 import pandas
 import random
 
-WORD_LIST = "data/french_words.csv"
+WORD_LIST_CSV_NEW = "data/french_words.csv"
+WORD_LIST_CSV_TO_LEARN = "data/french_words_to_learn.csv"
 
 WINDOW_BG_COLOR = "#B1DDC6"
 WINDOW_PADDING = 50
@@ -16,11 +17,15 @@ LANGUAGE_TEXT_Y_OFFSET = 113
 LANGUAGE_TEXT_FONT = ("Arial", 40, "italic")
 WORD_TEXT_FONT = ("Arial", 60, "bold")
 
+FRONT_TEXT_COLOR = "black"
+BACK_TEXT_COLOR = "white"
+
 FLASH_CARD_TIME = 3000
 
 
 def right():
-    """User successfully translated the word. Remove from word list and display a new flash card."""
+    """User successfully translated the word. Remove from word list and display a new flash card.
+    Save the new unlearned word list to a CSV."""
     if is_flash_card_back():
         # Remove word from word list
         word_list.remove(current_word)
@@ -28,12 +33,15 @@ def right():
         # Display new flash card
         new_flash_card()
 
+        # Save the new unlearned word list to a CSV
+        # TODO try except
+        with open(WORD_LIST_CSV_TO_LEARN, mode="w") as to_learn_file:
+            pandas.DataFrame(word_list).to_csv(to_learn_file, index=False)
+
 
 def wrong():
     """User unsuccessfully translated the word. Keep word in word list and display a new flash card."""
     if is_flash_card_back():
-        # TODO add to incorrect word list?
-
         # Display new flash card
         new_flash_card()
 
@@ -49,13 +57,17 @@ def new_word():
 
 
 def display_flash_card_front():
-    """Change the flash card to the front image."""
+    """Change the flash card to the front image. Change the text color."""
     flash_card.itemconfig(flash_card_image, image=flash_card_front_img)
+    flash_card.itemconfig(flash_card_language, fill=FRONT_TEXT_COLOR)
+    flash_card.itemconfig(flash_card_word, fill=FRONT_TEXT_COLOR)
 
 
 def display_flash_card_back():
-    """Change the flash card to the back (answer) image."""
+    """Change the flash card to the back (answer) image. Change the text color."""
     flash_card.itemconfig(flash_card_image, image=flash_card_back_img)
+    flash_card.itemconfig(flash_card_language, fill=BACK_TEXT_COLOR)
+    flash_card.itemconfig(flash_card_word, fill=BACK_TEXT_COLOR)
 
 
 def new_flash_card():
@@ -141,8 +153,13 @@ wrong_button.grid(column=0, row=1)
 
 # Load the word data
 # TODO try except
-with open(WORD_LIST) as file:
-    word_data = pandas.read_csv(file)
+# TODO check for previous word list
+try:
+    with open(WORD_LIST_CSV_TO_LEARN) as file:
+        word_data = pandas.read_csv(file)
+except FileNotFoundError:
+    with open(WORD_LIST_CSV_NEW) as file:
+        word_data = pandas.read_csv(file)
 
 # Create the word list dictionary
 word_list = word_data.to_dict(orient="records")
