@@ -154,11 +154,9 @@ wrong_button.grid(column=0, row=1)
 # Load the word data
 # TODO try except
 try:
-    with open(WORD_LIST_CSV_TO_LEARN) as file:
-        word_data = pandas.read_csv(file)
+    word_data = pandas.read_csv(WORD_LIST_CSV_TO_LEARN)
 except FileNotFoundError:
-    with open(WORD_LIST_CSV_NEW) as file:
-        word_data = pandas.read_csv(file)
+    word_data = pandas.read_csv(WORD_LIST_CSV_NEW)
 
 # Create the word list dictionary
 word_list = word_data.to_dict(orient="records")
