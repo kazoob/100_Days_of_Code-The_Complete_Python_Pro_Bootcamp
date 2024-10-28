@@ -153,7 +153,6 @@ wrong_button.grid(column=0, row=1)
 
 # Load the word data
 # TODO try except
-# TODO check for previous word list
 try:
     with open(WORD_LIST_CSV_TO_LEARN) as file:
         word_data = pandas.read_csv(file)
