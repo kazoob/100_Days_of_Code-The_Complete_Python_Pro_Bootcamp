@@ -3,7 +3,7 @@ import smtplib
 from datetime import datetime
 import random
 
-SMTP_PII_FILE_NAME = "smtp_pii.json"
+SMTP_PII_FILE_NAME = "../../smtp_pii.json"
 QUOTES_FILE_NAME = "quotes.txt"
 
 WEEKDAY_TRIGGER = 0  # 0 = Monday
