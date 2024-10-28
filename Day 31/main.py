@@ -35,8 +35,7 @@ def right():
 
         # Save the new unlearned word list to a CSV
         # TODO try except
-        with open(WORD_LIST_CSV_TO_LEARN, mode="w") as to_learn_file:
-            pandas.DataFrame(word_list).to_csv(to_learn_file, index=False)
+        pandas.DataFrame(word_list).to_csv(WORD_LIST_CSV_TO_LEARN, index=False)
 
 
 def wrong():
