@@ -11,6 +11,10 @@ WEEKDAY_TRIGGER = 0  # 0 = Monday
 day_of_week = datetime.now().weekday()
 
 if day_of_week == WEEKDAY_TRIGGER:
+    to_address = ""
+    while not to_address:
+        to_address = input("Enter the recipient's e-mail address: ")
+
     with open(SMTP_PII_FILE_NAME) as smtp_pii_file:
         smtp_pii = json.load(smtp_pii_file)
 
@@ -24,9 +28,9 @@ if day_of_week == WEEKDAY_TRIGGER:
 
     quote = random.choice(quotes)
 
-    message = f"From: {smtp_email}\nTo: {smtp_email}\nSubject: Motivational Quote\n\n{quote}"
+    message = f"From: {smtp_email}\nTo: {to_address}\nSubject: Motivational Quote\n\n{quote}"
 
     with smtplib.SMTP(host=smtp_host, port=smtp_port) as smtp:
         smtp.starttls()
         smtp.login(user=smtp_email, password=smtp_password)
-        smtp.sendmail(from_addr=smtp_email, to_addrs=smtp_email, msg=message)
+        smtp.sendmail(from_addr=smtp_email, to_addrs=to_address, msg=message)
