@@ -41,10 +41,7 @@ def is_dark_outside(lat, long):
 
     hour_now = datetime.now().hour
 
-    if sunset <= hour_now <= 23:
-        print("Dark")
-        return True
-    elif 0 <= hour_now <= sunrise:
+    if sunset <= hour_now or hour_now <= sunrise:
         print("Dark")
         return True
     else:
