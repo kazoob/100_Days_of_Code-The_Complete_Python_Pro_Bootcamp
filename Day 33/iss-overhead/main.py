@@ -2,6 +2,7 @@ import requests
 from datetime import datetime
 import smtplib
 import json
+import tzlocal
 
 MY_LAT = -50.1357  # Your latitude
 MY_LONG = -151.7149  # Your longitude
@@ -28,6 +29,7 @@ def is_dark_outside(lat, long):
         "lat": lat,
         "lng": long,
         "formatted": 0,
+        "tzid": tzlocal.get_localzone_name()
     }
 
     sunset_response = requests.get("https://api.sunrise-sunset.org/json", params=parameters)
@@ -40,10 +42,13 @@ def is_dark_outside(lat, long):
     hour_now = datetime.now().hour
 
     if sunset <= hour_now <= 23:
+        print("Dark")
         return True
     elif 0 <= hour_now <= sunrise:
+        print("Dark")
         return True
     else:
+        print("Light")
         return False
 
 
