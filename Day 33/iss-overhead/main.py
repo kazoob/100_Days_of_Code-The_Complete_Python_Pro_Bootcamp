@@ -18,7 +18,7 @@ def is_iss_overhead(lat, long):
     iss_latitude = float(iss_data["iss_position"]["latitude"])
     iss_longitude = float(iss_data["iss_position"]["longitude"])
 
-    if iss_latitude - 5 <= lat <= iss_latitude + 5 and iss_longitude - 5 <= long <= iss_longitude + 5:
+    if lat - 5 <= iss_latitude <= lat + 5 and long - 5 <= iss_longitude <= long + 5:
         return True
     else:
         return False
