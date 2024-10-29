@@ -27,6 +27,17 @@ def ordinal(n: int):
     return str(n) + suffix
 
 
+# Open the SMTP configuration file
+with open(SMTP_PII_FILE_NAME) as smtp_pii_file:
+    smtp_pii = json.load(smtp_pii_file)
+
+# Get the SMTP configuration fields
+smtp_username = smtp_pii['username']
+smtp_password = smtp_pii['password']
+smtp_from = smtp_pii['from']
+smtp_host = smtp_pii['host']
+smtp_port = smtp_pii['port']
+
 # Get the current year, month and day
 year = datetime.now().year
 month = datetime.now().month
@@ -48,17 +59,6 @@ for index, row in birthdays.iterrows():
     # Choose and open a random letter, replacing [NAME] with the actual name
     with open(random.choice(LETTER_FILE_NAMES)) as letter_file:
         letter = letter_file.read().replace("[NAME]", name)
-
-    # Open the SMTP configuration file
-    with open(SMTP_PII_FILE_NAME) as smtp_pii_file:
-        smtp_pii = json.load(smtp_pii_file)
-
-    # Get the SMTP configuration fields
-    smtp_username = smtp_pii['username']
-    smtp_password = smtp_pii['password']
-    smtp_from = smtp_pii['from']
-    smtp_host = smtp_pii['host']
-    smtp_port = smtp_pii['port']
 
     # Prepare the e-mail message
     message = f"From: {smtp_from}\nTo: {email}\nSubject: Happy {ordinal(year - birthday_year)} Birthday!\n\n{letter}"
