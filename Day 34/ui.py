@@ -35,12 +35,12 @@ class QuizInterface:
         self.question_canvas.grid(column=0, row=1, columnspan=2, pady=GRID_PADDING_Y)
 
         # Set up the buttons
-        self.true_button_img = PhotoImage(file=TRUE_BUTTON_IMAGE_FILE)
-        self.true_button = Button(image=self.true_button_img, highlightthickness=0, bd=0)
+        true_button_img = PhotoImage(file=TRUE_BUTTON_IMAGE_FILE)
+        self.true_button = Button(image=true_button_img, highlightthickness=0, bd=0)
         self.true_button.grid(column=0, row=2, padx=BUTTON_PADDING_X)
 
-        self.false_button_img = PhotoImage(file=FALSE_BUTTON_IMAGE_FILE)
-        self.false_button = Button(image=self.false_button_img, highlightthickness=0, bd=0)
+        false_button_img = PhotoImage(file=FALSE_BUTTON_IMAGE_FILE)
+        self.false_button = Button(image=false_button_img, highlightthickness=0, bd=0)
         self.false_button.grid(column=1, row=2, padx=BUTTON_PADDING_X)
 
         # Keep the window open
