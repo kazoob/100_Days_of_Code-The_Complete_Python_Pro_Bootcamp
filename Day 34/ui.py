@@ -27,7 +27,7 @@ class QuizInterface:
         self.update_score()
 
         # Set up the canvas
-        self.question_canvas = Canvas(width=QUESTION_WIDTH, height=QUESTION_HEIGHT)
+        self.question_canvas = Canvas(width=QUESTION_WIDTH, height=QUESTION_HEIGHT, bg="white", highlightthickness=0)
         self.question_field = self.question_canvas.create_text(20, 20, text="", fill=THEME_COLOR, font=QUESTION_FONT)
         self.question_canvas.grid(column=0, row=1, columnspan=2, padx=GRID_PADDING, pady=GRID_PADDING)
 
