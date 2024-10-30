@@ -1,7 +1,9 @@
 from tkinter import *
 
 THEME_COLOR = "#375362"
-GRID_PADDING = (20, 20)
+WINDOW_PADDING = 20
+GRID_PADDING_Y = (50, 50)
+BUTTON_PADDING_X = 20
 
 TRUE_BUTTON_IMAGE_FILE = "images/true.png"
 FALSE_BUTTON_IMAGE_FILE = "images/false.png"
@@ -19,27 +21,27 @@ class QuizInterface:
         # Set up the window
         self.window = Tk()
         self.window.title("Quizzler")
-        self.window.config(bg=THEME_COLOR)
+        self.window.config(bg=THEME_COLOR, padx=WINDOW_PADDING, pady=WINDOW_PADDING)
 
         # Set up the label
         self.score_label = Label(bg=THEME_COLOR, fg="white")
-        self.score_label.grid(column=1, row=0, padx=GRID_PADDING, pady=GRID_PADDING)
+        self.score_label.grid(column=1, row=0)
         self.update_score()
 
         # Set up the canvas
         self.question_canvas = Canvas(width=QUESTION_WIDTH, height=QUESTION_HEIGHT, bg="white", highlightthickness=0)
         self.question_field = self.question_canvas.create_text(QUESTION_WIDTH / 2, QUESTION_HEIGHT / 2,
                                                                fill=THEME_COLOR, font=QUESTION_FONT, text="Question")
-        self.question_canvas.grid(column=0, row=1, columnspan=2, padx=GRID_PADDING, pady=GRID_PADDING)
+        self.question_canvas.grid(column=0, row=1, columnspan=2, pady=GRID_PADDING_Y)
 
         # Set up the buttons
         self.true_button_img = PhotoImage(file=TRUE_BUTTON_IMAGE_FILE)
         self.true_button = Button(image=self.true_button_img)
-        self.true_button.grid(column=0, row=2, padx=GRID_PADDING, pady=GRID_PADDING)
+        self.true_button.grid(column=0, row=2, padx=BUTTON_PADDING_X)
 
         self.false_button_img = PhotoImage(file=FALSE_BUTTON_IMAGE_FILE)
         self.false_button = Button(image=self.false_button_img)
-        self.false_button.grid(column=1, row=2, padx=GRID_PADDING, pady=GRID_PADDING)
+        self.false_button.grid(column=1, row=2, padx=BUTTON_PADDING_X)
 
         # Keep the window open
         self.window.mainloop()
