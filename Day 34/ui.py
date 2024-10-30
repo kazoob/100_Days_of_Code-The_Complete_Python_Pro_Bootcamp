@@ -18,7 +18,6 @@ class QuizInterface:
 
     def __init__(self, quiz_brain: QuizBrain):
         self.quiz = quiz_brain
-        self.score = 0
 
         # Set up the window
         self.window = Tk()
@@ -53,16 +52,31 @@ class QuizInterface:
         self.window.mainloop()
 
     def update_score(self):
-        self.score_label.config(text=f"Score: {self.score}")
+        self.score_label.config(text=f"Score: {self.quiz.score}")
 
     def get_next_question(self):
-        question = self.quiz.next_question()
-        self.question_canvas.itemconfig(self.question_field, text=question)
+        if self.quiz.still_has_questions():
+            question = self.quiz.next_question()
+            self.question_canvas.itemconfig(self.question_field, text=question)
+        else:
+            self.question_canvas.itemconfig(self.question_field, text="You have completed the quiz!")
+            self.true_button.config(state="disabled")
+            self.false_button.config(state="disabled")
 
     def answer_true(self):
-        self.quiz.check_answer("true")
-        self.get_next_question()
+        self.answer_submit("True")
 
     def answer_false(self):
-        self.quiz.check_answer("false")
+        self.answer_submit("False")
+
+    def answer_submit(self, answer: str):
+        if self.quiz.check_answer(answer):
+            self.question_canvas.config(bg="green")
+        else:
+            self.question_canvas.config(bg="red")
+        self.update_score()
+        self.window.after(500, func=self.answer_cleanup)
+
+    def answer_cleanup(self):
+        self.question_canvas.config(bg="white")
         self.get_next_question()
