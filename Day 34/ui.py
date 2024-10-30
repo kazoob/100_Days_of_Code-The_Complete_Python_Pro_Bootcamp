@@ -39,11 +39,11 @@ class QuizInterface:
 
         # Set up the buttons
         true_button_img = PhotoImage(file=TRUE_BUTTON_IMAGE_FILE)
-        self.true_button = Button(image=true_button_img, highlightthickness=0, bd=0)
+        self.true_button = Button(image=true_button_img, highlightthickness=0, bd=0, command=self.answer_true)
         self.true_button.grid(column=0, row=2, padx=BUTTON_PADDING_X)
 
         false_button_img = PhotoImage(file=FALSE_BUTTON_IMAGE_FILE)
-        self.false_button = Button(image=false_button_img, highlightthickness=0, bd=0)
+        self.false_button = Button(image=false_button_img, highlightthickness=0, bd=0, command=self.answer_false)
         self.false_button.grid(column=1, row=2, padx=BUTTON_PADDING_X)
 
         # Display first question
@@ -58,3 +58,11 @@ class QuizInterface:
     def get_next_question(self):
         question = self.quiz.next_question()
         self.question_canvas.itemconfig(self.question_field, text=question)
+
+    def answer_true(self):
+        self.quiz.check_answer("true")
+        self.get_next_question()
+
+    def answer_false(self):
+        self.quiz.check_answer("false")
+        self.get_next_question()
