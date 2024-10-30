@@ -28,7 +28,8 @@ class QuizInterface:
 
         # Set up the canvas
         self.question_canvas = Canvas(width=QUESTION_WIDTH, height=QUESTION_HEIGHT, bg="white", highlightthickness=0)
-        self.question_field = self.question_canvas.create_text(20, 20, text="", fill=THEME_COLOR, font=QUESTION_FONT)
+        self.question_field = self.question_canvas.create_text(QUESTION_WIDTH / 2, QUESTION_HEIGHT / 2,
+                                                               fill=THEME_COLOR, font=QUESTION_FONT, text="Question")
         self.question_canvas.grid(column=0, row=1, columnspan=2, padx=GRID_PADDING, pady=GRID_PADDING)
 
         # Set up the buttons
