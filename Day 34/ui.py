@@ -2,7 +2,7 @@ from tkinter import *
 
 THEME_COLOR = "#375362"
 WINDOW_PADDING = 20
-GRID_PADDING_Y = (50, 50)
+GRID_PADDING_Y = 50
 BUTTON_PADDING_X = 20
 
 TRUE_BUTTON_IMAGE_FILE = "images/true.png"
