@@ -1,4 +1,5 @@
 from tkinter import *
+from quiz_brain import QuizBrain
 
 THEME_COLOR = "#375362"
 WINDOW_PADDING = 20
@@ -15,7 +16,8 @@ QUESTION_FONT = ("Arial", 20, "italic")
 
 class QuizInterface:
 
-    def __init__(self):
+    def __init__(self, quiz_brain: QuizBrain):
+        self.quiz = quiz_brain
         self.score = 0
 
         # Set up the window
@@ -31,7 +33,8 @@ class QuizInterface:
         # Set up the canvas
         self.question_canvas = Canvas(width=QUESTION_WIDTH, height=QUESTION_HEIGHT, bg="white", highlightthickness=0)
         self.question_field = self.question_canvas.create_text(QUESTION_WIDTH / 2, QUESTION_HEIGHT / 2,
-                                                               fill=THEME_COLOR, font=QUESTION_FONT, text="Question")
+                                                               fill=THEME_COLOR, font=QUESTION_FONT,
+                                                               width=QUESTION_WIDTH - 20)
         self.question_canvas.grid(column=0, row=1, columnspan=2, pady=GRID_PADDING_Y)
 
         # Set up the buttons
@@ -43,8 +46,15 @@ class QuizInterface:
         self.false_button = Button(image=false_button_img, highlightthickness=0, bd=0)
         self.false_button.grid(column=1, row=2, padx=BUTTON_PADDING_X)
 
+        # Display first question
+        self.get_next_question()
+
         # Keep the window open
         self.window.mainloop()
 
     def update_score(self):
         self.score_label.config(text=f"Score: {self.score}")
+
+    def get_next_question(self):
+        question = self.quiz.next_question()
+        self.question_canvas.itemconfig(self.question_field, text=question)
