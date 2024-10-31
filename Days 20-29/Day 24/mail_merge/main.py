@@ -1,7 +1,7 @@
 NAME_PLACEHOLDER = "[name]"
-STARTING_LETTER_PATH = "./Input/Letters/starting_letter.txt"
-INVITED_NAMES_PATH = "./Input/Names/invited_names.txt"
-READY_TO_SEND_PATH = "./Output/ReadyToSend/"
+STARTING_LETTER_PATH = "Input/Letters/starting_letter.txt"
+INVITED_NAMES_PATH = "Input/Names/invited_names.txt"
+READY_TO_SEND_PATH = "Output/ReadyToSend/"
 
 with open(STARTING_LETTER_PATH) as letter_file:
     starting_letter = letter_file.read()
