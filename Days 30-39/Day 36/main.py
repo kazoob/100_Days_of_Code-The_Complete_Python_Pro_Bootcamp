@@ -28,15 +28,13 @@ def get_stock_change(stock_name: str) -> float:
                 '2024-10-30': {'1. open': '258.0350', '2. high': '263.3500', '3. low': '255.8201',
                                '4. close': '257.5500', '5. volume': '53993576'},
                 '2024-10-29': {'1. open': '264.5100', '2. high': '264.9800', '3. low': '255.5100',
-                               '4. close': '259.5200', '5. volume': '80521751'}}}
-
-    stock_prices: list = []
+                               '4. close': '259.5200', '5. volume': '80521751'},
+                '2024-10-28': {'1. open': '1264.5100', '2. high': '1264.9800', '3. low': '1255.5100',
+                               '4. close': '1259.5200', '5. volume': '180521751'}}}
 
     try:
-        stock_json_values_list = list(stock_json["Time Series (Daily)"].values())
-
-        for i in range(0, 2):
-            stock_prices.append(float(stock_json_values_list[i]["4. close"]))
+        stock_json_list = list(stock_json["Time Series (Daily)"].values())[0:2]
+        stock_prices = [float(price["4. close"]) for price in stock_json_list]
     except KeyError as e:
         print("API error: Probably rate limited")
     else:
@@ -70,7 +68,6 @@ def get_news(company: str):
         news_response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
         news_response.raise_for_status()
         news_json = news_response.json()
-        print(news_json)
     else:
         news_json = {'status': 'ok', 'totalResults': 132, 'articles': [
             {'source': {'id': None, 'name': 'ETF Daily News'}, 'author': 'MarketBeat News',
