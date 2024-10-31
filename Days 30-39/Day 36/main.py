@@ -67,8 +67,8 @@ def get_news(company: str):
     #
     # news_response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
     # news_response.raise_for_status()
-    # news_data = news_response.json()
-    news_date = {
+    # news_json = news_response.json()
+    news_json = {
         "status": "ok",
         "totalResults": 805,
         "articles": [
@@ -115,7 +115,7 @@ def get_news(company: str):
     }
 
     news_articles = []
-    for article in news_date["articles"]:
+    for article in news_json["articles"]:
         news = {
             "title": article["title"],
             "description": article["description"],
