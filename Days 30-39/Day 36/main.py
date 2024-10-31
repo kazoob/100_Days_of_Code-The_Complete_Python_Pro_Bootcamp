@@ -26,11 +26,9 @@ def get_stock_change(stock_name: str) -> float:
         stock_json: dict = {
             'Time Series (Daily)': {
                 '2024-10-30': {'1. open': '258.0350', '2. high': '263.3500', '3. low': '255.8201',
-                               '4. close': '257.5500',
-                               '5. volume': '53993576'},
+                               '4. close': '257.5500', '5. volume': '53993576'},
                 '2024-10-29': {'1. open': '264.5100', '2. high': '264.9800', '3. low': '255.5100',
-                               '4. close': '259.5200',
-                               '5. volume': '80521751'}}}
+                               '4. close': '259.5200', '5. volume': '80521751'}}}
 
     stock_prices: list = []
 
@@ -62,7 +60,7 @@ def get_news(company: str):
     if not CACHED_JSON:
         news_parameters: dict[str, str] = {
             "apikey": os.environ["NEWSAPI_API_KEY"],
-            "q": company,
+            "qInTitle": company,
             "language": "en",
             "sortBy": "publishedAt",
             "pageSize": 3,
@@ -72,52 +70,28 @@ def get_news(company: str):
         news_response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
         news_response.raise_for_status()
         news_json = news_response.json()
+        print(news_json)
     else:
-        news_json = {
-            "status": "ok",
-            "totalResults": 805,
-            "articles": [
-                {
-                    "source": {
-                        "id": None,
-                        "name": "Motley Fool Australia"
-                    },
-                    "author": "Sebastian Bowen",
-                    "title": "7 hugely popular ASX ETFs smashing new record highs on Wednesday",
-                    "description": "Do you own any of these lucky ASX ETFs?\nThe post 7 hugely popular ASX ETFs smashing new record highs on Wednesday appeared first on The Motley Fool Australia.",
-                    "url": "https://www.fool.com.au/2024/10/30/7-hugely-popular-asx-etfs-smashing-new-record-highs-on-wednesday/",
-                    "urlToImage": "https://www.fool.com.au/wp-content/uploads/2022/02/gold-1200x675.jpg",
-                    "publishedAt": "2024-10-30T02:10:40Z",
-                    "content": "It's been a fairly miserable middle-of-the-week session for ASX shares so far this Wednesday. At the time of writing, the S&amp;P/ASX 200 Index (ASX: XJO) has lost 0.37% of its value and is down to a… [+4216 chars]"
-                },
-                {
-                    "source": {
-                        "id": None,
-                        "name": "Investing.com"
-                    },
-                    "author": "Investing.com",
-                    "title": "Cathie Wood's ARK sells Tesla, buys more Archer Aviation stock",
-                    "description": "Cathie Wood's ARK sells Tesla, buys more Archer Aviation stock",
-                    "url": "https://www.investing.com/news/company-news/cathie-woods-ark-sells-tesla-buys-more-archer-aviation-stock-93CH-3689803",
-                    "urlToImage": "https://i-invdn-com.investing.com/redesign/images/seo/investing_300X300.png",
-                    "publishedAt": "2024-10-30T00:01:52Z",
-                    "content": "Cathie Wood's ARK ETFs have made their daily trades for Tuesday, October 29th, 2024, with significant activity across a range of innovative companies. In a notable move, ARK sold 13,896 shares of Tes… [+2335 chars]"
-                },
-                {
-                    "source": {
-                        "id": None,
-                        "name": "Motley Fool Australia"
-                    },
-                    "author": "Mitchell Lawler",
-                    "title": "3 ASX shares you probably didn't know are founder-led and why it matters",
-                    "description": "'Founder mode'. It's more than a meme, it's a management style. One that might be worth investing in. \nThe post 3 ASX shares you probably didn't know are founder-led and why it matters appeared first on The Motley Fool Australia.",
-                    "url": "https://www.fool.com.au/2024/10/30/3-asx-shares-you-probably-didnt-know-are-founder-led-and-why-it-matters/",
-                    "urlToImage": "https://www.fool.com.au/wp-content/uploads/2021/09/New-boss-in-town-16_9-1200x675.jpg",
-                    "publishedAt": "2024-10-29T23:31:09Z",
-                    "content": "It's important who calls the shots at the companies you're invested in. A corporation is merely a legal structure. It alone holds no worth. The accumulation of skill and intellect of the people withi… [+4027 chars]"
-                }
-            ]
-        }
+        news_json = {'status': 'ok', 'totalResults': 132, 'articles': [
+            {'source': {'id': None, 'name': 'ETF Daily News'}, 'author': 'MarketBeat News',
+             'title': 'Tesla, Inc. (NASDAQ:TSLA) Holdings Cut by Old Port Advisors',
+             'description': 'Old Port Advisors reduced its stake in shares of Tesla, Inc. (NASDAQ:TSLA – Free Report) by 29.8% during the 3rd quarter, HoldingsChannel reports. The fund owned 836 shares of the electric vehicle producer’s stock after selling 355 shares during the period. O…',
+             'url': 'https://www.etfdailynews.com/2024/10/30/tesla-inc-nasdaqtsla-holdings-cut-by-old-port-advisors/',
+             'urlToImage': 'https://www.americanbankingnews.com/wp-content/timthumb/timthumb.php?src=https://www.marketbeat.com/logos/tesla-inc-logo-1200x675.png?v=20221020135629&w=240&h=240&zc=2',
+             'publishedAt': '2024-10-30T11:59:25Z',
+             'content': 'Old Port Advisors reduced its stake in shares of Tesla, Inc. (NASDAQ:TSLA – Free Report) by 29.8% during the 3rd quarter, HoldingsChannel reports. The fund owned 836 shares of the electric vehicle pr… [+6762 chars]'},
+            {'source': {'id': None, 'name': 'Biztoc.com'}, 'author': 'marketbeat.com',
+             'title': 'Tesla, Inc. (NASDAQ:TSLA) Shares Sold by Vanguard Capital Wealth Advisors',
+             'description': 'Vanguard Capital Wealth Advisors decreased its holdings in Tesla, Inc. (NASDAQ:TSLA - Free Report) by 79.0% in the 3rd quarter, according to the company in its most recent Form 13F filing with the Securities & Exchange Commission. The institutional investor o…',
+             'url': 'https://biztoc.com/x/08da6e6de65377a4', 'urlToImage': 'https://biztoc.com/cdn/806/og.png',
+             'publishedAt': '2024-10-30T11:24:43Z',
+             'content': 'Vanguard Capital Wealth Advisors decreased its holdings in Tesla, Inc. (NASDAQ:TSLA - Free Report) by 79.0% in the 3rd quarter, according to the company in its most recent Form 13F filing with the Se… [+148 chars]'},
+            {'source': {'id': None, 'name': 'Biztoc.com'}, 'author': 'marketbeat.com',
+             'title': 'Tesla, Inc. (NASDAQ:TSLA) Receives Consensus Recommendation of "Hold" from Analysts',
+             'description': 'Shares of Tesla, Inc. (NASDAQ:TSLA - Get Free Report) have received an average recommendation of "Hold" from the thirty-eight analysts that are currently covering the stock, Marketbeat reports. Eight equities research analysts have rated the stock with a sell…',
+             'url': 'https://biztoc.com/x/666ac5ccf73084a8', 'urlToImage': 'https://biztoc.com/cdn/806/og.png',
+             'publishedAt': '2024-10-30T09:04:06Z',
+             'content': 'Shares of Tesla, Inc. (NASDAQ:TSLA - Get Free Report) have received an average recommendation of "Hold" from the thirty-eight analysts that are currently covering the stock, Marketbeat reports. Eight… [+141 chars]'}]}
 
     news_articles = []
     for article in news_json["articles"]:
@@ -132,7 +106,8 @@ def get_news(company: str):
 
 
 print(f"{get_stock_change(STOCK)}%")
-print(get_news(COMPANY_NAME))
+for news in get_news(COMPANY_NAME):
+    print(news)
 
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
