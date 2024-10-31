@@ -7,8 +7,6 @@ import os
 MY_LAT = -50.1357  # Your latitude
 MY_LONG = -151.7149  # Your longitude
 
-SMTP_PII_FILE_NAME = "../../smtp_pii.json"
-
 
 def is_iss_overhead(lat, long):
     iss_response = requests.get(url="http://api.open-notify.org/iss-now.json")
