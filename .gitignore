@@ -1,2 +1,4 @@
 *pii*
 .env
+.venv/*
+.idea/*
