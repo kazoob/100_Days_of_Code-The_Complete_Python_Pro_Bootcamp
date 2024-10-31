@@ -5,12 +5,15 @@ from twilio.rest import Client
 CACHED_JSON = True
 STOCK: str = "TSLA"
 COMPANY_NAME: str = "Tesla Inc"
+STOCK_CHANGE_THRESHOLD = 0.5
 
 
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
 def get_stock_change(stock_name: str) -> float:
+    """Return the percentage change of the previous 2 trading days' closing price."""
+
+    # Get live result from API.
     if not CACHED_JSON:
+        # API parameters.
         stock_parameters: dict[str, str] = {
             "apikey": os.environ["ALPHAVANTAGE_API_KEY"],
             "function": "TIME_SERIES_DAILY",
@@ -19,9 +22,14 @@ def get_stock_change(stock_name: str) -> float:
             "datatype": "json"
         }
 
+        # API request / response.
         stock_response = requests.get(url="https://www.alphavantage.co/query", params=stock_parameters)
         stock_response.raise_for_status()
+
+        # Get API response JSON.
         stock_json: dict = stock_response.json()
+
+    # Use cached JSON response.
     else:
         stock_json: dict = {
             'Time Series (Daily)': {
@@ -32,30 +40,42 @@ def get_stock_change(stock_name: str) -> float:
                 '2024-10-28': {'1. open': '1264.5100', '2. high': '1264.9800', '3. low': '1255.5100',
                                '4. close': '1259.5200', '5. volume': '180521751'}}}
 
+    # Get the two most recent closing prices. If the API is rate limiting us, catch the resulting KeyError exception.
     try:
+        # Get the two most recent days.
         stock_json_list = list(stock_json["Time Series (Daily)"].values())[0:2]
+
+        # Get the closing prices.
         stock_prices = [float(price["4. close"]) for price in stock_json_list]
     except KeyError as e:
         print("API error: Probably rate limited")
     else:
+        # Return the percentage change between the two prices.
         return get_change(stock_prices[0], stock_prices[1])
 
     return 0
 
 
 def get_change(current, previous):
+    """Return the percentage change between two numbers."""
+
+    # No change.
     if current == previous:
         return 0
+    # Calculate change between two numbers.
     try:
         return round(((current - previous) / previous) * 100.0, 2)
+    # Catch division by zero.
     except ZeroDivisionError:
         return float('inf')
 
 
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
 def get_news(company: str):
+    """Return the 3 most recent news articles for the given company name."""
+
+    # Get live result from API.
     if not CACHED_JSON:
+        # API parameters.
         news_parameters: dict[str, str] = {
             "apikey": os.environ["NEWSAPI_API_KEY"],
             "qInTitle": company,
@@ -65,9 +85,14 @@ def get_news(company: str):
             "page": 1,
         }
 
+        # API request / response.
         news_response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
         news_response.raise_for_status()
+
+        # Get API response JSON.
         news_json = news_response.json()
+
+    # Use cached JSON response.
     else:
         news_json = {'status': 'ok', 'totalResults': 132, 'articles': [
             {'source': {'id': None, 'name': 'ETF Daily News'}, 'author': 'MarketBeat News',
@@ -90,33 +115,58 @@ def get_news(company: str):
              'publishedAt': '2024-10-30T09:04:06Z',
              'content': 'Shares of Tesla, Inc. (NASDAQ:TSLA - Get Free Report) have received an average recommendation of "Hold" from the thirty-eight analysts that are currently covering the stock, Marketbeat reports. Eight… [+141 chars]'}]}
 
-    news_articles = []
+    # Build new dictionary with the title, description and url fields only.
+    articles = []
     for article in news_json["articles"]:
-        news = {
+        news_item = {
             "title": article["title"],
             "description": article["description"],
             "url": article["url"],
         }
-        news_articles.append(news)
+        articles.append(news_item)
 
-    return news_articles
-
-
-print(f"{get_stock_change(STOCK)}%")
-for news in get_news(COMPANY_NAME):
-    print(news)
-
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number. 
+    # Return new dictionary.
+    return articles
 
 
-# Optional: Format the SMS message like this:
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
+def send_sms(stock, stock_change, news):
+    """Send SMS message with stock symbol, change percentage from previous day and news article."""
+
+    # Set up Twilio client.
+    twilio_client = Client(os.environ["TWILIO_ACCOUNT_SID"], os.environ["TWILIO_AUTH_TOKEN"])
+
+    # Determine if the stock change was no change, positive or negative.
+    if stock_change == 0:
+        stock_change_symbol = "🔸"
+    elif stock_change > 0:
+        stock_change_symbol = "🔺"
+    else:
+        stock_change_symbol = "🔻"
+
+    # Prepare SMS body. Include stock symbol, change percentage, change symbol, news headline and news URL.
+    twilio_body = (f"{stock}: {stock_change_symbol}{abs(stock_change)}%\n"
+                   f"Headline: {news["title"]}\n"
+                   f"URL: {news["url"]}")
+
+    # Send SMS message.
+    twilio_message = twilio_client.messages.create(
+        body=twilio_body,
+        from_=os.environ["TWILIO_FROM"],
+        to=os.environ["TWILIO_TO"],
+    )
+
+
+# Get the price change percent for stock symbol.
+stock_change_pct = get_stock_change(STOCK)
+
+# Proceed if change is over the threshold.
+if abs(stock_change_pct) >= STOCK_CHANGE_THRESHOLD:
+    # Get the news articles for the company.
+    news_articles = get_news(COMPANY_NAME)
+
+    # Send an SMS message for each news article.
+    # for article in news_articles:
+    #     send_sms(STOCK, stock_change_pct, article)
+
+    # Send an SMS message for the first news article only.
+    send_sms(STOCK, stock_change_pct, news_articles[0])
