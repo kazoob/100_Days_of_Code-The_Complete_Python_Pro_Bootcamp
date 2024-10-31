@@ -2,7 +2,7 @@ import smtplib
 from datetime import datetime
 import random
 import pandas
-import json
+import os
 
 # Birthday CSV file
 BIRTHDAY_FILE_NAME = "birthdays_pii.csv"
@@ -14,9 +14,6 @@ LETTER_FILE_NAMES = [
     "letter_templates/letter_3.txt",
 ]
 
-# SMTP configuration file name
-SMTP_PII_FILE_NAME = "../../smtp_pii.json"
-
 
 def ordinal(n: int):
     """Code from https://stackoverflow.com/questions/9647202/ordinal-numbers-replacement"""
@@ -26,17 +23,6 @@ def ordinal(n: int):
         suffix = ['th', 'st', 'nd', 'rd', 'th'][min(n % 10, 4)]
     return str(n) + suffix
 
-
-# Open the SMTP configuration file
-with open(SMTP_PII_FILE_NAME) as smtp_pii_file:
-    smtp_pii = json.load(smtp_pii_file)
-
-# Get the SMTP configuration fields
-smtp_username = smtp_pii['username']
-smtp_password = smtp_pii['password']
-smtp_from = smtp_pii['from']
-smtp_host = smtp_pii['host']
-smtp_port = smtp_pii['port']
 
 # Get the current year, month and day
 year = datetime.now().year
@@ -61,10 +47,10 @@ for index, row in birthdays.iterrows():
         letter = letter_file.read().replace("[NAME]", name)
 
     # Prepare the e-mail message
-    message = f"From: {smtp_from}\nTo: {email}\nSubject: Happy {ordinal(year - birthday_year)} Birthday!\n\n{letter}"
+    message = f"From: {os.environ["SMTP_FROM"]}\nTo: {email}\nSubject: Happy {ordinal(year - birthday_year)} Birthday!\n\n{letter}"
 
     # Send the e-mail
-    with smtplib.SMTP(host=smtp_host, port=smtp_port) as smtp:
+    with smtplib.SMTP(host=os.environ["SMTP_HOST"], port=int(os.environ["SMTP_PORT"])) as smtp:
         smtp.starttls()
-        smtp.login(user=smtp_username, password=smtp_password)
-        smtp.sendmail(from_addr=smtp_from, to_addrs=email, msg=message)
+        smtp.login(user=os.environ["SMTP_USERNAME"], password=os.environ["SMTP_PASSWORD"])
+        smtp.sendmail(from_addr=os.environ["SMTP_FROM"], to_addrs=email, msg=message)
