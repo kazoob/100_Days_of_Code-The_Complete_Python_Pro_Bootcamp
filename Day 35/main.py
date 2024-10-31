@@ -3,8 +3,8 @@ import json
 import os
 from twilio.rest import Client
 
-OPENWEATHER_PII_FILE_NAME = "../../openweather_pii.json"
-TWILIO_PII_FILE_NAME = "../../twilio_pii.json"
+OPENWEATHER_PII_FILE_NAME = "../openweather_pii.json"
+TWILIO_PII_FILE_NAME = "../twilio_pii.json"
 
 with open(OPENWEATHER_PII_FILE_NAME) as openweather_pii_file:
     openweather_pii = json.load(openweather_pii_file)
@@ -64,4 +64,4 @@ twilio_message = twilio_client.messages.create(
     to=twilio_to,
 )
 
-print(twilio_message.body)
+print(twilio_message.status)
