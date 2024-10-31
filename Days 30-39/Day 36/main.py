@@ -48,15 +48,86 @@ def get_change(current, previous):
     if current == previous:
         return 0
     try:
-        return round((abs(current - previous) / previous) * 100.0, 2)
+        return round(((current - previous) / previous) * 100.0, 2)
     except ZeroDivisionError:
         return float('inf')
 
 
-print(f"{get_stock_change(STOCK)}%")
-
 ## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME. 
+# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
+def get_news(company: str):
+    # news_parameters: dict[str, str] = {
+    #     "apikey": os.environ["NEWSAPI_API_KEY"],
+    #     "q": company,
+    #     "language": "en",
+    #     "sortBy": "publishedAt",
+    #     "pageSize": 3,
+    #     "page": 1,
+    # }
+    #
+    # news_response = requests.get(url="https://newsapi.org/v2/everything", params=news_parameters)
+    # news_response.raise_for_status()
+    # news_data = news_response.json()
+    news_date = {
+        "status": "ok",
+        "totalResults": 805,
+        "articles": [
+            {
+                "source": {
+                    "id": None,
+                    "name": "Motley Fool Australia"
+                },
+                "author": "Sebastian Bowen",
+                "title": "7 hugely popular ASX ETFs smashing new record highs on Wednesday",
+                "description": "Do you own any of these lucky ASX ETFs?\nThe post 7 hugely popular ASX ETFs smashing new record highs on Wednesday appeared first on The Motley Fool Australia.",
+                "url": "https://www.fool.com.au/2024/10/30/7-hugely-popular-asx-etfs-smashing-new-record-highs-on-wednesday/",
+                "urlToImage": "https://www.fool.com.au/wp-content/uploads/2022/02/gold-1200x675.jpg",
+                "publishedAt": "2024-10-30T02:10:40Z",
+                "content": "It's been a fairly miserable middle-of-the-week session for ASX shares so far this Wednesday. At the time of writing, the S&amp;P/ASX 200 Index (ASX: XJO) has lost 0.37% of its value and is down to a… [+4216 chars]"
+            },
+            {
+                "source": {
+                    "id": None,
+                    "name": "Investing.com"
+                },
+                "author": "Investing.com",
+                "title": "Cathie Wood's ARK sells Tesla, buys more Archer Aviation stock",
+                "description": "Cathie Wood's ARK sells Tesla, buys more Archer Aviation stock",
+                "url": "https://www.investing.com/news/company-news/cathie-woods-ark-sells-tesla-buys-more-archer-aviation-stock-93CH-3689803",
+                "urlToImage": "https://i-invdn-com.investing.com/redesign/images/seo/investing_300X300.png",
+                "publishedAt": "2024-10-30T00:01:52Z",
+                "content": "Cathie Wood's ARK ETFs have made their daily trades for Tuesday, October 29th, 2024, with significant activity across a range of innovative companies. In a notable move, ARK sold 13,896 shares of Tes… [+2335 chars]"
+            },
+            {
+                "source": {
+                    "id": None,
+                    "name": "Motley Fool Australia"
+                },
+                "author": "Mitchell Lawler",
+                "title": "3 ASX shares you probably didn't know are founder-led and why it matters",
+                "description": "'Founder mode'. It's more than a meme, it's a management style. One that might be worth investing in. \nThe post 3 ASX shares you probably didn't know are founder-led and why it matters appeared first on The Motley Fool Australia.",
+                "url": "https://www.fool.com.au/2024/10/30/3-asx-shares-you-probably-didnt-know-are-founder-led-and-why-it-matters/",
+                "urlToImage": "https://www.fool.com.au/wp-content/uploads/2021/09/New-boss-in-town-16_9-1200x675.jpg",
+                "publishedAt": "2024-10-29T23:31:09Z",
+                "content": "It's important who calls the shots at the companies you're invested in. A corporation is merely a legal structure. It alone holds no worth. The accumulation of skill and intellect of the people withi… [+4027 chars]"
+            }
+        ]
+    }
+
+    news_articles = []
+    for article in news_date["articles"]:
+        news = {
+            "title": article["title"],
+            "description": article["description"],
+            "url": article["url"],
+        }
+        news_articles.append(news)
+
+    return news_articles
+
+
+print(f"{get_stock_change(STOCK)}%")
+print(get_news(COMPANY_NAME))
 
 ## STEP 3: Use https://www.twilio.com
 # Send a seperate message with the percentage change and each article's title and description to your phone number. 
