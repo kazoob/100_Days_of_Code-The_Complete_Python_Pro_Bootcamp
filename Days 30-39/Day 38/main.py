@@ -25,7 +25,7 @@ nutritionix_response.raise_for_status()
 nutritionix_json = nutritionix_response.json()
 
 sheety_endpoint = (f"https://api.sheety.co/{os.environ["SHEETY_USERNAME"]}/"
-                   f"{os.environ["SHEETY_PROJECT_NAME"]}/{os.environ["SHEETY_SHEET_NAME"]}")
+                   f"{os.environ["SHEETY_WORKOUT_PROJECT_NAME"]}/{os.environ["SHEETY_WORKOUT_SHEET_NAME"]}")
 
 sheety_headers = {
     "Authorization": f"Bearer {os.environ["SHEETY_API_KEY"]}",
