@@ -2,7 +2,7 @@ import os
 import requests
 from twilio.rest import Client
 
-CACHED_JSON = True
+CACHED_JSON = False
 STOCK: str = "TSLA"
 COMPANY_NAME: str = "Tesla Inc"
 STOCK_CHANGE_THRESHOLD = 0.5
