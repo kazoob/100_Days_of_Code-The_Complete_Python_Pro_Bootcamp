@@ -1,3 +1,5 @@
+#This class is responsible for structuring the flight data.
 class FlightData:
-    #This class is responsible for structuring the flight data.
-    pass
+
+    def __init__(self):
+        pass
