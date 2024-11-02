@@ -11,7 +11,7 @@ class FlightSearch:
         self._api_key = os.environ["AMADEUS_TEST_API_KEY"]
         self._api_secret = os.environ["AMADEUS_TEST_API_SECRET"]
 
-        # Get API bearer token.
+        # Get API access token.
         self._token = self._get_new_token()
 
     def _get_new_token(self):
