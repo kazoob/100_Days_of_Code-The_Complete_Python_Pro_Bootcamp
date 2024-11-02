@@ -36,7 +36,7 @@ class DataManager:
         print(self.sheet_data)
         return self.sheet_data
 
-    def update_iata(self, city, iata):
+    def update_iata_code(self, city, iata):
         """Update the IATA code for a given city."""
 
         # Get the sheet row (dictionary) matching the provided city.
