@@ -27,9 +27,9 @@ class DataManager:
             self.sheet_data = response.json()["prices"]
         # Use cached API data.
         else:
-            self.sheet_data = [{'city': 'Tokyo', 'iataCode': '', 'lowestPrice': 485, 'id': 2},
-                               {'city': 'San Francisco', 'iataCode': '', 'lowestPrice': 260, 'id': 3},
-                               {'city': 'Dublin', 'iataCode': '', 'lowestPrice': 378, 'id': 4}]
+            self.sheet_data = [{'city': 'Tokyo', 'iataCode': 'TEST', 'lowestPrice': 485, 'id': 2},
+                               {'city': 'San Francisco', 'iataCode': 'TEST', 'lowestPrice': 260, 'id': 3},
+                               {'city': 'Dublin', 'iataCode': 'TEST', 'lowestPrice': 378, 'id': 4}]
 
     def get_sheet_data(self):
         """Return flight sheet data."""
@@ -44,7 +44,17 @@ class DataManager:
 
         # If a row was found, update the IATA code.
         if row:
+            # Update the sheet row (dictionary).
             row["iataCode"] = iata
+
+            # Update the sheet via API.
+            update_params = {
+                "price": {
+                    "iataCode": row["iataCode"],
+                }
+            }
+            response = requests.put(url=f"{API_ENDPOINT}/{row["id"]}", headers=self.api_headers, json=update_params)
+            response.raise_for_status()
         # No row was found.
         else:
             print(f"{city} not found in sheet")
