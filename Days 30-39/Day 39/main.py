@@ -3,6 +3,7 @@ from data_manager import DataManager
 from flight_search import FlightSearch
 from notification_manager import NotificationManager
 
+# Create classes.
 data_manager = DataManager()
 flight_search = FlightSearch()
 notification_manager = NotificationManager()
@@ -28,8 +29,10 @@ if iata_missing:
 for row in sheet_data:
     flight = flight_search.find_flights(row["iataCode"], int(row["lowestPrice"]))
 
+    # Check for valid flight
     if flight:
         print(flight)
+        # Send SMS message
         #notification_manager.send_sms(flight)
     else:
         print(f"No flights found for {row["city"]}.")

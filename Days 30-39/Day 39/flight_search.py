@@ -23,6 +23,7 @@ class FlightSearch:
         }
 
     def _get_new_token(self) -> str:
+        """Get new access (bearer) token."""
         # Token API information.
         token_api_endpoint = AMADEUS_TOKEN_ENDPOINT
 
@@ -47,6 +48,7 @@ class FlightSearch:
         return response.json()["access_token"]
 
     def get_iata_code(self, city: str) -> str:
+        """Get IATA code for provided city."""
         # API information.
         api_endpoint = AMADEUS_CITY_SEARCH_ENDPOINT
 
@@ -66,6 +68,7 @@ class FlightSearch:
         return response.json()["data"][0]['iataCode']
 
     def find_flights(self, iata_code: str, max_price: int) -> FlightData:
+        """Find the cheapest flight available for the provided IATA code within a maximum price."""
         # API information.
         api_endpoint = AMADEUS_FLIGHT_SEARCH_ENDPOINT
 
@@ -114,6 +117,7 @@ class FlightSearch:
                     cheapest_flight = FlightData(lowest_price, origin, destination, out_date, return_date)
 
             return cheapest_flight
+        # API error, return None.
         else:
             print(response.json())
             return None
