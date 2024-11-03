@@ -1,4 +1,3 @@
-# This class is responsible for structuring the flight data.
 class FlightData:
 
     def __init__(self, price: int, origin_airport: str, destination_airport: str, stops: int, out_date: str,

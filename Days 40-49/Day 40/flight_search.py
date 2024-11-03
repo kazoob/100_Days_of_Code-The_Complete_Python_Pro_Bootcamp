@@ -13,7 +13,6 @@ FLIGHT_SEARCH_CURRENCY = "GBP"
 FLIGHT_SEARCH_MAX_RESULTS = 10
 
 
-# This class is responsible for talking to the Flight Search API.
 class FlightSearch:
 
     def __init__(self):

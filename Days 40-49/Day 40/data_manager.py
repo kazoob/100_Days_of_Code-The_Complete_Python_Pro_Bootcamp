@@ -4,7 +4,6 @@ import requests
 SHEETY_ENDPOINT_BASE = "https://api.sheety.co"
 
 
-# This class is responsible for talking to the Google Sheet.
 class DataManager:
 
     def __init__(self):
