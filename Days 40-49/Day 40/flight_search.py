@@ -9,7 +9,6 @@ AMADEUS_FLIGHT_SEARCH_ENDPOINT = "https://test.api.amadeus.com/v2/shopping/fligh
 
 FLIGHT_SEARCH_ORIGIN = "LON"
 FLIGHT_SEARCH_NUM_ADULTS = 1
-FLIGHT_SEARCH_NON_STOP = "true"
 FLIGHT_SEARCH_CURRENCY = "GBP"
 FLIGHT_SEARCH_MAX_RESULTS = 10
 
@@ -73,7 +72,7 @@ class FlightSearch:
         # TODO error checking
         return response.json()["data"][0]['iataCode']
 
-    def find_flights(self, iata_code: str, max_price: int) -> FlightData:
+    def find_flights(self, iata_code: str, max_price: int, direct: bool = True) -> FlightData:
         """Find the cheapest flight available for the provided IATA code within a maximum price."""
         # API information.
         api_endpoint = AMADEUS_FLIGHT_SEARCH_ENDPOINT
@@ -89,7 +88,7 @@ class FlightSearch:
             "departureDate": departure_date.strftime("%Y-%m-%d"),
             "returnDate": return_date.strftime("%Y-%m-%d"),
             "adults": FLIGHT_SEARCH_NUM_ADULTS,
-            "nonStop": FLIGHT_SEARCH_NON_STOP,
+            "nonStop": str(direct).lower(),
             "currencyCode": FLIGHT_SEARCH_CURRENCY,
             "maxPrice": max_price,
             "max": FLIGHT_SEARCH_MAX_RESULTS,
@@ -117,12 +116,19 @@ class FlightSearch:
                 if cheapest_flight is None or price < lowest_price:
                     lowest_price = price
                     origin = flight["itineraries"][0]["segments"][0]["departure"]["iataCode"]
-                    destination = flight["itineraries"][0]["segments"][0]["arrival"]["iataCode"]
+                    destination = flight["itineraries"][0]["segments"][-1]["arrival"]["iataCode"]
+                    stops = len(flight["itineraries"][0]["segments"])
                     out_date = flight["itineraries"][0]["segments"][0]["departure"]["at"].split("T")[0]
                     return_date = flight["itineraries"][1]["segments"][0]["departure"]["at"].split("T")[0]
-                    cheapest_flight = FlightData(lowest_price, origin, destination, out_date, return_date)
+                    cheapest_flight = FlightData(lowest_price, origin, destination, stops, out_date, return_date)
 
-            return cheapest_flight
+            # Return if a flight was found.
+            if cheapest_flight:
+                return cheapest_flight
+            # If no flight was found, search for indirect flights.
+            elif direct:
+                print(f"No direct flight found for {iata_code}, searching for indirect flights.")
+                return self.find_flights(iata_code, max_price, False)
         # API error, return None.
         else:
             print(response.json())
