@@ -32,7 +32,12 @@ for row in sheet_data:
     # Check for valid flight
     if flight:
         print(flight)
+
         # Send SMS message
-        #notification_manager.send_sms(flight)
+        # notification_manager.send_sms(flight)
+
+        # Send e-mail message to all users
+        for email in data_manager.get_user_emails():
+            notification_manager.send_email(flight, email)
     else:
         print(f"No flights found for {row["city"]}.")
