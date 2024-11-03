@@ -7,6 +7,12 @@ AMADEUS_TOKEN_ENDPOINT = "https://test.api.amadeus.com/v1/security/oauth2/token"
 AMADEUS_CITY_SEARCH_ENDPOINT = "https://test.api.amadeus.com/v1/reference-data/locations/cities"
 AMADEUS_FLIGHT_SEARCH_ENDPOINT = "https://test.api.amadeus.com/v2/shopping/flight-offers"
 
+FLIGHT_SEARCH_ORIGIN = "LON"
+FLIGHT_SEARCH_NUM_ADULTS = 1
+FLIGHT_SEARCH_NON_STOP = "true"
+FLIGHT_SEARCH_CURRENCY = "GBP"
+FLIGHT_SEARCH_MAX_RESULTS = 10
+
 
 # This class is responsible for talking to the Flight Search API.
 class FlightSearch:
@@ -78,15 +84,15 @@ class FlightSearch:
 
         # API parameters.
         api_parameters = {
-            "originLocationCode": "LON",
+            "originLocationCode": FLIGHT_SEARCH_ORIGIN,
             "destinationLocationCode": iata_code,
             "departureDate": departure_date.strftime("%Y-%m-%d"),
             "returnDate": return_date.strftime("%Y-%m-%d"),
-            "adults": 1,
-            "nonStop": "true",
-            "currencyCode": "GBP",
+            "adults": FLIGHT_SEARCH_NUM_ADULTS,
+            "nonStop": FLIGHT_SEARCH_NON_STOP,
+            "currencyCode": FLIGHT_SEARCH_CURRENCY,
             "maxPrice": max_price,
-            "max": 10,
+            "max": FLIGHT_SEARCH_MAX_RESULTS,
         }
 
         # API request.
