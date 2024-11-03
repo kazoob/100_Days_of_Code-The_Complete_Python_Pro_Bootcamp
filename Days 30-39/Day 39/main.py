@@ -21,3 +21,12 @@ if iata_missing:
 
     # Get updated sheet data.
     sheet_data = data_manager.get_sheet_data()
+
+# Get flight results.
+for row in sheet_data:
+    flight = flight_search.find_flights(row["iataCode"], int(row["lowestPrice"]))
+
+    if flight:
+        print(flight)
+    else:
+        print(f"No flights found for {row["city"]}.")
