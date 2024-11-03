@@ -30,6 +30,6 @@ for row in sheet_data:
 
     if flight:
         print(flight)
-        notification_manager.send_sms(flight)
+        #notification_manager.send_sms(flight)
     else:
         print(f"No flights found for {row["city"]}.")
