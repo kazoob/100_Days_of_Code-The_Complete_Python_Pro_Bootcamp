@@ -38,6 +38,7 @@ class FlightSearch:
         response.raise_for_status()
 
         # Return access token.
+        # TODO error checking
         return response.json()["access_token"]
 
     def get_iata_code(self, city):
@@ -45,15 +46,13 @@ class FlightSearch:
 
         api_parameters = {
             "keyword": city,
-            "countryCode": "US"
+            "max": "1",
+            "include": "AIRPORTS",
         }
 
         response = requests.get(url=api_endpoint, headers=self._api_header, params=api_parameters)
         response.raise_for_status()
 
-        print(response.json())
-
-        # Return access token.
-        # return response.json()["access_token"]
-
-        return "TEST"
+        # Return IATA code.
+        # TODO error checking
+        return response.json()["data"][0]['iataCode']

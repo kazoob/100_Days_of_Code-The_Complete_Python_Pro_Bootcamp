@@ -27,11 +27,12 @@ class DataManager:
             response.raise_for_status()
 
             # Get JSON data.
+            # TODO error checking
             self.sheet_data = response.json()["prices"]
         # Use cached API data.
         else:
-            self.sheet_data = [{'city': 'San Francisco', 'iataCode': '', 'lowestPrice': 260, 'id': 2},
-                               {'city': 'New York', 'iataCode': '', 'lowestPrice': 240, 'id': 3}]
+            self.sheet_data = [{'city': 'San Francisco', 'iataCode': 'SFO', 'lowestPrice': 260, 'id': 2},
+                               {'city': 'New York', 'iataCode': 'NYC', 'lowestPrice': 240, 'id': 3}]
 
     def get_sheet_data(self):
         """Return flight sheet data."""
