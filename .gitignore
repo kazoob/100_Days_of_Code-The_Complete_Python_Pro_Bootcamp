@@ -1,4 +1,6 @@
 *pii*
 .env
-.venv/*
-.idea/*
+.venv
+.idea
+.DS_Store
+__pycache__
