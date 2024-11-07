@@ -1,5 +1,3 @@
-from operator import indexOf
-
 from bs4 import BeautifulSoup
 import requests
 # import lxml
