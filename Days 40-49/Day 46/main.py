@@ -75,3 +75,12 @@ for track in track_titles[:sp_num_tracks]:
 pprint.pp(sp_track_uris)
 print()
 
+# Create playlist
+sp_playlist = sp.user_playlist_create(user=sp_user_id, name=f"{date} Billboard 100", public=False)
+pprint.pp(sp_playlist)
+print()
+print(f"Playlist ID: {sp_playlist["id"]}")
+print()
+
+# Add tracks to playlist
+sp.playlist_add_items(playlist_id=sp_playlist["id"], items=sp_track_uris)
