@@ -4,14 +4,18 @@ import re
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import os
+import pprint
 
 BB_URL_BASE: str = "https://www.billboard.com/charts/hot-100"
+SP_MAX_TRACKS = 5
 
 date: str = ""
 
 # Get date from user, verify format.
 while not re.match('^[0-9]{4}-[0-9]{2}-[0-9]{2}$', date):
     date = input("Which year do you want to travel to? YYYY-MM-DD: ")
+
+year: int = int(date.split("-")[0])
 
 # Billboard website information.
 bb_url = f"{BB_URL_BASE}/{date}"
@@ -26,14 +30,38 @@ bb_soup = BeautifulSoup(markup=bb_response.text, features="html.parser")
 tracks = bb_soup.select("li ul li h3")
 
 # Get the track titles.
-track_titles = [track.get_text().strip() for track in tracks]
-print(track_titles)
+track_titles: list = [track.get_text().strip() for track in tracks]
+pprint.pp(track_titles)
+print()
 
-# Spotify
+# Spotify authentication
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=os.environ["SPOTIFY_CLIENT_ID"],
                                                client_secret=os.environ["SPOTIFY_CLIENT_SECRET"],
                                                redirect_uri="https://example.com",
                                                scope="user-library-read playlist-modify-private"))
 
-sp_user_id = sp.current_user()["id"]
-print(sp_user_id)
+# Get Spotify user id
+sp_user_id: str = sp.current_user()["id"]
+print(f"Spotify user id: {sp_user_id}")
+print()
+
+# Spotify track URI list
+sp_track_uris: list = []
+
+# Determine number of tracks to search
+sp_num_tracks: int
+if SP_MAX_TRACKS >= len(track_titles):
+    sp_num_tracks = len(track_titles)
+else:
+    sp_num_tracks = SP_MAX_TRACKS
+
+# Search for tracks
+for track in track_titles[:sp_num_tracks]:
+    sp_result = sp.search(q=f"track: {track} year: {year}", type="track", limit=1)
+    try:
+        track_uri = sp_result["tracks"]["items"][0]["uri"]
+        sp_track_uris.append(track_uri)
+    except IndexError:
+        print(f"Track {track} ({year}) not found, skipping.")
+
+pprint.pp(sp_track_uris)
