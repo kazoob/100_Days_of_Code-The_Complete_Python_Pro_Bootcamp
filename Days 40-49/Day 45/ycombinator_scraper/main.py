@@ -6,11 +6,14 @@ import requests
 website = requests.get(url="https://news.ycombinator.com/news")
 soup = BeautifulSoup(markup=website.text, features="html.parser")
 
+# Get the articles
+articles = soup.find_all(name="span", class_="titleline")
+
 # Get the article titles
-article_titles = [span.find(name="a").get_text() for span in soup.find_all(name="span", class_="titleline")]
+article_titles = [span.find(name="a").get_text() for span in articles]
 
 # Get the article links
-article_links = [span.find(name="a").get("href") for span in soup.find_all(name="span", class_="titleline")]
+article_links = [span.find(name="a").get("href") for span in articles]
 
 # Get the article upvotes
 article_upvotes = [int(span.get_text().split(" ")[0]) for span in soup.find_all(name="span", class_="score")]
