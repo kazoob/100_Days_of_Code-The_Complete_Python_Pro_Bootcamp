@@ -1,6 +1,9 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+import spotipy
+from spotipy.oauth2 import SpotifyOAuth
+import os
 
 BB_URL_BASE: str = "https://www.billboard.com/charts/hot-100"
 
@@ -26,3 +29,11 @@ tracks = bb_soup.select("li ul li h3")
 track_titles = [track.get_text().strip() for track in tracks]
 print(track_titles)
 
+# Spotify
+sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=os.environ["SPOTIFY_CLIENT_ID"],
+                                               client_secret=os.environ["SPOTIFY_CLIENT_SECRET"],
+                                               redirect_uri="https://example.com",
+                                               scope="user-library-read playlist-modify-private"))
+
+sp_user_id = sp.current_user()["id"]
+print(sp_user_id)
