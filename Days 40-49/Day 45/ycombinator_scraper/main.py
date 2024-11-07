@@ -9,11 +9,14 @@ soup = BeautifulSoup(markup=website.text, features="html.parser")
 # Get the articles
 articles = soup.find_all(name="span", class_="titleline")
 
+# Get the article links
+article_links = [article.find(name="a") for article in articles]
+
 # Get the article titles
-article_titles = [span.find(name="a").get_text() for span in articles]
+article_titles = [link.get_text() for link in article_links]
 
 # Get the article links
-article_links = [span.find(name="a").get("href") for span in articles]
+article_links = [link.get("href") for link in article_links]
 
 # Get the article upvotes
 article_upvotes = [int(span.get_text().split(" ")[0]) for span in soup.find_all(name="span", class_="score")]
