@@ -79,8 +79,9 @@ print()
 sp_playlist = sp.user_playlist_create(user=sp_user_id, name=f"{date} Billboard 100", public=False)
 pprint.pp(sp_playlist)
 print()
-print(f"Playlist ID: {sp_playlist["id"]}")
+sp_playlist_id = sp_playlist["id"]
+print(f"Playlist ID: {sp_playlist_id}")
 print()
 
 # Add tracks to playlist
-sp.playlist_add_items(playlist_id=sp_playlist["id"], items=sp_track_uris)
+sp.playlist_add_items(playlist_id=sp_playlist_id, items=sp_track_uris)
