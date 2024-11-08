@@ -15,7 +15,11 @@ email = driver.find_element(By.NAME, value="email")
 
 fname.send_keys("Tester")
 lname.send_keys("Dude")
-email.send_keys("tester@dude.com", Keys.ENTER)
+#email.send_keys("tester@dude.com", Keys.ENTER)
+email.send_keys("tester@dude.com")
+
+button = driver.find_element(By.TAG_NAME, value="button")
+button.click()
 
 time.sleep(1)
 
