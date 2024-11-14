@@ -110,7 +110,7 @@ while time.time() < game_end:
         # Purchase items.
         purchase_upgrades()
 
-        print("\n")
+        print("")
 
         # Set next purchase interval.
         purchase_time = time.time() + PURCHASE_INTERVAL_SEC
@@ -118,7 +118,7 @@ while time.time() < game_end:
         # Display remaining game time.
         minutes_remaining = round((game_end - time.time()) // 60)
         seconds_remaining = round((game_end - time.time()) % 60)
-        print(f"Game time remaining: {minutes_remaining} minutes, {seconds_remaining} seconds")
+        print(f"Game time remaining: {minutes_remaining} minutes, {seconds_remaining} seconds\n")
 
     # Click cookie every loop.
     driver.find_element(By.ID, "cookie").click()
