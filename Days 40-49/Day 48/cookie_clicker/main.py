@@ -104,7 +104,7 @@ game_end: float = time.time() + GAME_RUN_MIN * 60
 purchase_time: float = time.time() + PURCHASE_INTERVAL_SEC
 
 # Continue to run game until game end time.
-current_time = time.time()
+current_time: float = time.time()
 while current_time < game_end:
     # Purchase interval has been reached.
     if current_time >= purchase_time:
