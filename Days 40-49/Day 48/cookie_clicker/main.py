@@ -73,7 +73,7 @@ def get_store():
         except IndexError:
             pass
         # If store changes during processing (usually due to cookie number increasing from buildings and a new
-        # option becoming available, get a new store.
+        # option becoming available), get a new store.
         except StaleElementReferenceException:
             return get_store()
         # Skip over invalid store item.
