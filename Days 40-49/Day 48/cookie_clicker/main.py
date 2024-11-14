@@ -104,24 +104,28 @@ game_end: float = time.time() + GAME_RUN_MIN * 60
 purchase_time: float = time.time() + PURCHASE_INTERVAL_SEC
 
 # Continue to run game until game end time.
-while time.time() < game_end:
+current_time = time.time()
+while current_time < game_end:
     # Purchase interval has been reached.
-    if time.time() >= purchase_time:
+    if current_time >= purchase_time:
         # Purchase items.
         purchase_upgrades()
 
         print("")
 
         # Set next purchase interval.
-        purchase_time = time.time() + PURCHASE_INTERVAL_SEC
+        purchase_time = current_time + PURCHASE_INTERVAL_SEC
 
         # Display remaining game time.
-        minutes_remaining = round((game_end - time.time()) // 60)
-        seconds_remaining = round((game_end - time.time()) % 60)
+        minutes_remaining = round((game_end - current_time) // 60)
+        seconds_remaining = round((game_end - current_time) % 60)
         print(f"Game time remaining: {minutes_remaining} minutes, {seconds_remaining} seconds\n")
 
     # Click cookie every loop.
     driver.find_element(By.ID, "cookie").click()
+
+    # Update current time.
+    current_time = time.time()
 
 # Display end score.
 print(f"Final score after {GAME_RUN_MIN} minutes: {driver.find_element(By.ID, "cps").text}")
