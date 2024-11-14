@@ -17,7 +17,7 @@ def purchase_upgrades():
         time.sleep(0.06)
 
 
-def purchase_next_upgrade():
+def purchase_next_upgrade() -> bool:
     """Purchase the highest affordable upgrade. Return True if an upgrade was purchased, otherwise return False."""
     # Get cookie value.
     cookies = int(driver.find_element(By.ID, "money").text.replace(",", ""))
@@ -43,7 +43,7 @@ def purchase_next_upgrade():
     return False
 
 
-def get_store():
+def get_store() -> list:
     """Return the store items and prices. Prices are ordered from highest to lowest."""
     # Store list.
     store = []
@@ -117,8 +117,8 @@ while current_time < game_end:
         purchase_time = current_time + PURCHASE_INTERVAL_SEC
 
         # Display remaining game time.
-        minutes_remaining = round((game_end - current_time) // 60)
-        seconds_remaining = round((game_end - current_time) % 60)
+        minutes_remaining: int = round((game_end - current_time) // 60)
+        seconds_remaining: int = round((game_end - current_time) % 60)
         print(f"Game time remaining: {minutes_remaining} minutes, {seconds_remaining} seconds\n")
 
     # Click cookie every loop.
