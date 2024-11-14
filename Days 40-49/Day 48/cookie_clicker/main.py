@@ -5,12 +5,13 @@ from selenium.common.exceptions import StaleElementReferenceException
 import time
 
 PURCHASE_INTERVAL_SEC = 5
+PURCHASE_RECURSIVE = False
 GAME_RUN_MIN = 5
 
 
 def purchase_upgrades():
-    while purchase_next_upgrade():
-        time.sleep(0.05)
+    while purchase_next_upgrade() and PURCHASE_RECURSIVE:
+        time.sleep(0.06)
 
 
 def purchase_next_upgrade():
