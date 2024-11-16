@@ -3,7 +3,6 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import StaleElementReferenceException
 import time
-import threading
 
 URL = "https://orteil.dashnet.org/cookieclicker/"
 PURCHASE_INTERVAL_SEC = 5  # Interval to purchase upgrades in seconds
